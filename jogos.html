@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jogos — ACAP Futsal</title>
+<meta name="description" content="Acompanhe os jogos da ACAP Futsal: Time 1 e Time 2 na Federação Paulista de Futebol de Salão, e os amistosos da ACAP Academy.">
+<link rel="icon" type="image/webp" href="assets/img/acap-crest.webp">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<div class="grain"></div>
+<div class="cursor-glow" id="cursorGlow"></div>
+
+<!-- ================= NAV ================= -->
+<header class="nav" id="siteNav">
+  <div class="nav__inner">
+    <a href="index.html#top" class="nav__brand">
+      <img src="assets/img/acap-crest.webp" alt="Escudo ACAP Futsal" class="nav__crest">
+      <span class="nav__word">ACAP <em>FUTSAL</em></span>
+    </a>
+    <nav class="nav__links" id="navLinks">
+      <a href="index.html#top" data-nav>Início</a>
+      <a href="academy.html" data-nav>Academy</a>
+      <a href="federacao.html" data-nav>Federação</a>
+      <a href="uniformes.html" data-nav>Uniformes</a>
+      <a href="jogos.html" data-nav>Jogos</a>
+      <a href="https://www.instagram.com/acap_futsal/" target="_blank" rel="noopener" class="nav__cta">Instagram</a>
+    </nav>
+    <button class="nav__burger" id="navBurger" aria-label="Abrir menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<!-- ================= HERO ================= -->
+<section class="academy-hero" id="top">
+  <img src="assets/img/hero-jogos.webp" alt="Quadra de futsal lotada durante uma partida da ACAP" class="academy-hero__photo">
+  <div class="academy-hero__overlay" aria-hidden="true"></div>
+
+  <div class="academy-hero__content">
+    <p class="hero__kicker reveal">TEMPORADA</p>
+    <h1 class="academy-hero__title reveal">
+      <span class="line">NOSSOS</span>
+      <span class="line academy-hero__title--accent">JOGOS</span>
+    </h1>
+    <p class="academy-hero__subtitle reveal">
+      Acompanhe a agenda e os resultados do <strong>Time 1</strong>, do <strong>Time 2</strong>
+      e da <strong>ACAP Academy</strong> — tudo num só lugar, atualizado conforme a tabela da Federação.
+    </p>
+    <div class="hero__actions">
+      <a href="https://www.instagram.com/acap_futsal/" target="_blank" rel="noopener" class="btn btn--solid">Seguir no Instagram</a>
+      <a href="federacao.html" class="btn btn--ghost">Conhecer os times</a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= TICKER ================= -->
+<div class="ticker">
+  <div class="ticker__track">
+    <span>TIME 1</span><span>·</span>
+    <span>TIME 2</span><span>·</span>
+    <span>ACADEMY</span><span>·</span>
+    <span>CAMPEONATO PAULISTA</span><span>·</span>
+    <span>COPA UNIÃO</span><span>·</span>
+    <span>TIME 1</span><span>·</span>
+    <span>TIME 2</span><span>·</span>
+    <span>ACADEMY</span><span>·</span>
+    <span>CAMPEONATO PAULISTA</span><span>·</span>
+    <span>COPA UNIÃO</span><span>·</span>
+  </div>
+</div>
+
+<!-- ================= FILTROS ================= -->
+<section class="jogos-filtros">
+  <div class="section__inner">
+    <span class="tag reveal">Agenda</span>
+    <h2 class="reveal">Filtre por time</h2>
+
+    <div class="jogos-filtros__teams reveal">
+      <button class="filter-pill active" data-team-filter="todos" type="button">Todos</button>
+      <button class="filter-pill" data-team-filter="time1" type="button">Time 1</button>
+      <button class="filter-pill" data-team-filter="time2" type="button">Time 2</button>
+      <button class="filter-pill" data-team-filter="academy" type="button">Academy</button>
+    </div>
+
+    <div class="jogos-filtros__status reveal">
+      <button class="status-tab active" data-status-filter="proximos" type="button">Próximos jogos</button>
+      <button class="status-tab" data-status-filter="resultados" type="button">Resultados</button>
+    </div>
+  </div>
+</section>
+
+<!-- ================= LISTA DE JOGOS ================= -->
+<section class="jogos-lista">
+  <div class="section__inner">
+
+    <!-- Os jogos são cadastrados pelo painel em admin.html e carregados aqui
+         automaticamente via js/jogos.js. O conteúdo abaixo é o estado vazio
+         (aparece só enquanto não houver jogos cadastrados no Supabase). -->
+
+    <div class="jogos-grid" id="jogosProximos" data-status-panel="proximos">
+      <div class="jogos-empty reveal">
+        <span class="jogos-empty__icon"><svg aria-hidden="true" class="lucide lucide-calendar" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M8 2v3" /> <path d="M16 2v3" /> <rect x="3" y="3" width="18" height="18" rx="2" /> <path d="M3 9h18" /> </svg></span>
+        <h3>Tabela ainda não divulgada</h3>
+        <p>
+          Assim que a Federação divulgar o calendário da temporada, os próximos jogos
+          do Time 1, do Time 2 e da ACAP Academy aparecem aqui.
+        </p>
+        <a href="https://www.instagram.com/acap_futsal/" target="_blank" rel="noopener" class="btn btn--ghost">Acompanhar no Instagram</a>
+      </div>
+    </div>
+
+    <div class="jogos-grid" id="jogosResultados" data-status-panel="resultados" hidden>
+      <div class="jogos-empty reveal">
+        <span class="jogos-empty__icon"><svg aria-hidden="true" class="lucide lucide-trophy" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M10 14.66V17a1 1 0 0 1-1 1 2 2 0 0 0-2 2v2" /> <path d="M14 14.66V17a1 1 0 0 0 1 1 2 2 0 0 1 2 2v2" /> <path d="M17.916 10H19.5A2.5 2.5 0 0 0 22 7.5V5a1 1 0 0 0-1-1h-3" /> <path d="M4 22h16" /> <path d="M6 9a6 6 0 0 0 12 0V3a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1z" /> <path d="M6.084 10H4.5A2.5 2.5 0 0 1 2 7.5V5a1 1 0 0 1 1-1h3" /> </svg></span>
+        <h3>Nenhum resultado registrado ainda</h3>
+        <p>Os resultados do Time 1, do Time 2 e da ACAP Academy vão aparecer aqui conforme os jogos acontecem.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer class="footer">
+  <div class="section__inner footer__inner">
+    <div class="footer__brand">
+      <img src="assets/img/acap-crest.webp" alt="Escudo ACAP Futsal">
+      <div>
+        <strong>ACAP FUTSAL</strong>
+        <span>Associação Contra Ataque Paulista</span>
+      </div>
+    </div>
+    <p class="footer__copy">© <span id="year"></span> ACAP Futsal — Força &amp; Garra. Zona Leste, São Paulo.</p>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<script src="js/supabase-config.js"></script>
+<script src="js/main.js"></script>
+<script src="js/jogos.js"></script>
+</body>
+</html>

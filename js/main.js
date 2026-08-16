@@ -36,13 +36,15 @@ if (supportsHover) {
     glow.classList.add("active");
   });
 
-  hero?.addEventListener("mousemove", (e) => {
-    const rect = hero.getBoundingClientRect();
-    eyes.style.left = `${e.clientX - rect.left}px`;
-    eyes.style.top = `${e.clientY - rect.top}px`;
-    eyes.classList.add("active");
-  });
-  hero?.addEventListener("mouseleave", () => eyes.classList.remove("active"));
+  if (hero && eyes) {
+    hero.addEventListener("mousemove", (e) => {
+      const rect = hero.getBoundingClientRect();
+      eyes.style.left = `${e.clientX - rect.left}px`;
+      eyes.style.top = `${e.clientY - rect.top}px`;
+      eyes.classList.add("active");
+    });
+    hero.addEventListener("mouseleave", () => eyes.classList.remove("active"));
+  }
 }
 
 /* ---------- Scroll reveal ---------- */
@@ -83,6 +85,103 @@ const countObserver = new IntersectionObserver(
   { threshold: 0.6 }
 );
 countEls.forEach(el => countObserver.observe(el));
+
+/* ---------- Timeline line-fill on scroll ---------- */
+const timeline = document.getElementById("timeline");
+if (timeline) {
+  const timelineObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          timeline.classList.add("is-filled");
+          timelineObserver.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.2 }
+  );
+  timelineObserver.observe(timeline);
+}
+
+/* ---------- FAQ accordion ---------- */
+document.querySelectorAll(".faq__item").forEach(item => {
+  const q = item.querySelector(".faq__q");
+  const a = item.querySelector(".faq__a");
+  q.addEventListener("click", () => {
+    const isOpen = item.classList.contains("open");
+
+    document.querySelectorAll(".faq__item.open").forEach(openItem => {
+      if (openItem !== item) {
+        openItem.classList.remove("open");
+        openItem.querySelector(".faq__q").setAttribute("aria-expanded", "false");
+        openItem.querySelector(".faq__a").style.maxHeight = null;
+      }
+    });
+
+    item.classList.toggle("open", !isOpen);
+    q.setAttribute("aria-expanded", String(!isOpen));
+    a.style.maxHeight = isOpen ? null : `${a.scrollHeight}px`;
+  });
+});
+
+/* ---------- Jogos: filtro por time + tabs próximos/resultados ---------- */
+const teamFilters = document.querySelectorAll("[data-team-filter]");
+const statusTabs = document.querySelectorAll("[data-status-filter]");
+const statusPanels = document.querySelectorAll("[data-status-panel]");
+
+teamFilters.forEach(btn => {
+  btn.addEventListener("click", () => {
+    teamFilters.forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+    const team = btn.dataset.teamFilter;
+    document.querySelectorAll(".jogo-card").forEach(card => {
+      card.style.display = (team === "todos" || card.dataset.team === team) ? "" : "none";
+    });
+  });
+});
+
+statusTabs.forEach(tab => {
+  tab.addEventListener("click", () => {
+    statusTabs.forEach(t => t.classList.remove("active"));
+    tab.classList.add("active");
+    statusPanels.forEach(panel => {
+      panel.hidden = panel.dataset.statusPanel !== tab.dataset.statusFilter;
+    });
+  });
+});
+
+/* pseudo-3D tilt + fabric sheen on uniform cards */
+if (supportsHover) {
+  document.querySelectorAll(".uniform-card").forEach(card => {
+    const visual = card.querySelector(".uniform-card__visual");
+    const photo = card.querySelector(".uniform-card__photo");
+
+    card.addEventListener("mousemove", (e) => {
+      const rect = card.getBoundingClientRect();
+      const x = (e.clientX - rect.left) / rect.width - 0.5;
+      const y = (e.clientY - rect.top) / rect.height - 0.5;
+
+      card.style.transform = `perspective(900px) rotateX(${y * -10}deg) rotateY(${x * 10}deg) translateY(-6px) translateZ(10px)`;
+      card.style.boxShadow = `${x * -26}px ${18 - y * 18}px 44px -18px rgba(0,0,0,.65)`;
+
+      if (visual) {
+        visual.style.setProperty("--px", `${(x + 0.5) * 100}%`);
+        visual.style.setProperty("--py", `${(y + 0.5) * 100}%`);
+        visual.classList.add("is-active");
+      }
+      if (photo) {
+        photo.style.transform = `translate(${x * -10}px, ${y * -10}px) scale(1.04)`;
+      }
+    });
+
+    card.addEventListener("mouseleave", () => {
+      card.style.transform = "";
+      card.style.boxShadow = "";
+      if (visual) visual.classList.remove("is-active");
+      if (photo) photo.style.transform = "";
+    });
+  });
+}
 
 /* subtle tilt on category cards */
 if (supportsHover) {

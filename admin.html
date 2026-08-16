@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Painel de Jogos — ACAP Futsal</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" type="image/webp" href="assets/img/acap-crest.webp">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="admin-body">
+
+<div class="grain"></div>
+
+<header class="admin-header">
+  <a href="index.html#top" class="admin-header__brand">
+    <img src="assets/img/acap-crest.webp" alt="Escudo ACAP Futsal">
+    <span>ACAP <em>ADMIN</em></span>
+  </a>
+  <div class="admin-header__actions" id="headerActions" hidden>
+    <span class="admin-header__email" id="userEmail"></span>
+    <button class="btn--text" id="logoutBtn" type="button">Sair</button>
+  </div>
+</header>
+
+<!-- ================= AVISO: SUPABASE NÃO CONFIGURADO ================= -->
+<div class="admin-config-warning" id="configWarning" hidden>
+  <h1>Supabase ainda não configurado</h1>
+  <p>Este painel precisa de um projeto Supabase pra funcionar.</p>
+  <p>Edite <code>js/supabase-config.js</code> com a URL e a chave do seu projeto, rode o script em <code>supabase/schema.sql</code> e crie o seu login em Authentication → Users.</p>
+</div>
+
+<!-- ================= LOGIN ================= -->
+<section class="admin-login" id="loginScreen" hidden>
+  <h1>Painel de Jogos</h1>
+  <p>Entre com o login cadastrado no Supabase.</p>
+  <div id="loginMsg"></div>
+  <form id="loginForm">
+    <div class="field">
+      <label for="loginEmail">E-mail</label>
+      <input type="email" id="loginEmail" required autocomplete="username">
+    </div>
+    <div class="field">
+      <label for="loginPassword">Senha</label>
+      <input type="password" id="loginPassword" required autocomplete="current-password">
+    </div>
+    <button type="submit" class="btn btn--solid" style="width:100%;">Entrar</button>
+  </form>
+</section>
+
+<!-- ================= PAINEL ================= -->
+<main class="admin-main" id="adminMain" hidden>
+
+  <form class="admin-form" id="jogoForm">
+    <h2 id="formTitle">Novo jogo</h2>
+    <div id="formMsg"></div>
+
+    <input type="hidden" id="jogoId">
+
+    <div class="field">
+      <label for="fTeam">Time</label>
+      <select id="fTeam" required>
+        <option value="time1">Time 1</option>
+        <option value="time2">Time 2</option>
+        <option value="academy">Academy</option>
+      </select>
+    </div>
+
+    <div class="field">
+      <label>Categorias que jogam no dia (opcional)</label>
+      <div class="checkbox-group">
+        <label class="checkbox-pill"><input type="checkbox" name="fCategorias" value="Sub-7"><span>Sub-7</span></label>
+        <label class="checkbox-pill"><input type="checkbox" name="fCategorias" value="Sub-8"><span>Sub-8</span></label>
+        <label class="checkbox-pill"><input type="checkbox" name="fCategorias" value="Sub-9"><span>Sub-9</span></label>
+        <label class="checkbox-pill"><input type="checkbox" name="fCategorias" value="Sub-10"><span>Sub-10</span></label>
+        <label class="checkbox-pill"><input type="checkbox" name="fCategorias" value="Sub-12"><span>Sub-12</span></label>
+        <label class="checkbox-pill"><input type="checkbox" name="fCategorias" value="Sub-14"><span>Sub-14</span></label>
+        <label class="checkbox-pill"><input type="checkbox" name="fCategorias" value="Sub-16"><span>Sub-16</span></label>
+        <label class="checkbox-pill"><input type="checkbox" name="fCategorias" value="Sub-18"><span>Sub-18</span></label>
+      </div>
+      <p class="field__hint">Marque as categorias que disputam nesse dia/local. Deixe em branco se não se aplica.</p>
+    </div>
+
+    <div class="field">
+      <label for="fCompeticao">Competição</label>
+      <input type="text" id="fCompeticao" placeholder="Ex: Campeonato Paulista, Copa União, Amistoso" required>
+    </div>
+
+    <div class="field">
+      <label for="fAdversario">Adversário</label>
+      <input type="text" id="fAdversario" placeholder="Nome do time adversário" required>
+    </div>
+
+    <div class="field">
+      <label for="fLogo">Escudo do adversário (opcional)</label>
+      <input type="file" id="fLogo" accept="image/*">
+      <img id="logoPreview" class="admin-form__logo-preview" alt="Pré-visualização do escudo">
+      <input type="hidden" id="fLogoUrl">
+    </div>
+
+    <div class="field--row">
+      <div class="field">
+        <label for="fData">Data</label>
+        <input type="date" id="fData" required>
+      </div>
+      <div class="field">
+        <label for="fHora">Horário</label>
+        <input type="time" id="fHora">
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Local</label>
+      <div class="radio-group">
+        <label class="radio-pill">
+          <input type="radio" name="fLocalTipo" value="casa" checked>
+          <span>Casa</span>
+        </label>
+        <label class="radio-pill">
+          <input type="radio" name="fLocalTipo" value="fora">
+          <span>Fora</span>
+        </label>
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="fLocalNome">Ginásio / arena (opcional)</label>
+      <input type="text" id="fLocalNome" placeholder="Ex: Arena ACAP">
+    </div>
+
+    <div class="field">
+      <label>Status</label>
+      <div class="radio-group">
+        <label class="radio-pill">
+          <input type="radio" name="fStatus" value="agendado" checked>
+          <span>Agendado</span>
+        </label>
+        <label class="radio-pill">
+          <input type="radio" name="fStatus" value="realizado">
+          <span>Realizado</span>
+        </label>
+      </div>
+    </div>
+
+    <div class="field--row admin-form__placar" id="placarFields">
+      <div class="field">
+        <label for="fPlacarAcap">Placar ACAP</label>
+        <input type="number" id="fPlacarAcap" min="0">
+      </div>
+      <div class="field">
+        <label for="fPlacarAdversario">Placar adversário</label>
+        <input type="number" id="fPlacarAdversario" min="0">
+      </div>
+    </div>
+
+    <div class="admin-form__placar-categorias" id="placarCategoriasFields">
+      <p class="field__hint">Esse jogo tem mais de uma categoria — informe o placar de cada uma:</p>
+      <div id="placarCategoriasList"></div>
+    </div>
+
+    <div class="admin-form__actions">
+      <button type="submit" class="btn btn--solid btn--small" id="submitBtn">Salvar jogo</button>
+      <button type="button" class="btn--text" id="cancelEditBtn" hidden>Cancelar edição</button>
+    </div>
+  </form>
+
+  <div class="admin-list">
+    <h2>Jogos cadastrados</h2>
+    <div id="jogosList">
+      <p class="admin-empty">Carregando...</p>
+    </div>
+  </div>
+
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<script src="js/supabase-config.js"></script>
+<script src="js/admin.js"></script>
+</body>
+</html>
