@@ -584,6 +584,7 @@ async function handlePatrocinadorSubmit(e) {
       nome: document.getElementById("fNome").value.trim(),
       logo_url: logoUrl,
       link_url: document.getElementById("fLinkUrl").value.trim() || null,
+      instagram_url: document.getElementById("fInstagram").value.trim() || null,
       categoria: document.getElementById("fPatrocinadorCategoria").value.trim() || null,
       ordem: toIntOrNull(document.getElementById("fOrdem").value) ?? 0,
     };
@@ -626,7 +627,7 @@ async function loadPatrocinadores() {
         <img class="admin-row__logo" src="${escapeHtml(p.logo_url)}" alt="">
         <div class="admin-row__info">
           <div class="admin-row__title">${escapeHtml(p.nome)}</div>
-          <div class="admin-row__meta">Ordem ${p.ordem}${p.categoria ? " · " + escapeHtml(p.categoria) : ""}${p.link_url ? " · " + escapeHtml(p.link_url) : ""}</div>
+          <div class="admin-row__meta">Ordem ${p.ordem}${p.categoria ? " · " + escapeHtml(p.categoria) : ""}${p.link_url ? " · " + escapeHtml(p.link_url) : ""}${p.instagram_url ? " · " + escapeHtml(p.instagram_url) : ""}</div>
         </div>
         <div class="admin-row__actions">
           <button class="btn--icon" type="button" data-edit="${p.id}" title="Editar"><svg aria-hidden="true" class="lucide lucide-pencil" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z" /> <path d="m15 5 4 4" /> </svg></button>
@@ -651,6 +652,7 @@ function editPatrocinador(id, data) {
   document.getElementById("fNome").value = p.nome;
   document.getElementById("fPatrocinadorLogoUrl").value = p.logo_url || "";
   document.getElementById("fLinkUrl").value = p.link_url || "";
+  document.getElementById("fInstagram").value = p.instagram_url || "";
   document.getElementById("fPatrocinadorCategoria").value = p.categoria || "";
   document.getElementById("fOrdem").value = p.ordem ?? 0;
 

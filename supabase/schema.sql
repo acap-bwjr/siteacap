@@ -115,6 +115,7 @@ create table if not exists patrocinadores (
   nome text not null,
   logo_url text not null,
   link_url text,
+  instagram_url text,
   categoria text,
   ordem int not null default 0,
   created_at timestamptz not null default now()

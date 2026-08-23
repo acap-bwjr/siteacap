@@ -1701,6 +1701,17 @@ ul{ margin:0; padding:0; list-style:none; }
 .patrocinador-card:hover img{ filter: none; opacity: 1; }
 .patrocinador-card__nome{ font-size: .82rem; font-weight: 700; color: var(--white); }
 .patrocinador-card__categoria{ font-size: .68rem; text-transform: uppercase; letter-spacing: .06em; color: var(--eye-green); }
+.patrocinador-card__actions{ display: flex; gap: 8px; margin-top: 2px; }
+.patrocinador-card__action{
+  display: flex; align-items: center; justify-content: center;
+  width: 30px; height: 30px;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  color: var(--white);
+  transition: background .25s, border-color .25s, color .25s;
+}
+.patrocinador-card__action svg{ width: 15px; height: 15px; }
+.patrocinador-card__action:hover{ background: var(--eye-green); border-color: var(--eye-green); color: var(--black); }
 
 .patrocinio-cta{ padding: 80px 0 120px; }
 .patrocinio-cta__panel{

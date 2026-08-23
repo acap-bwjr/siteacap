@@ -43,6 +43,7 @@ test("campos obrigatórios impedem o envio do formulário", async ({ page }) => 
 });
 
 test('botão "Marque sua avaliação!" no menu leva pra página de avaliação', async ({ page }) => {
+  await page.setViewportSize({ width: 1600, height: 900 });
   await page.goto("/index.html");
   await page.click('.nav__cta--solid');
   await expect(page).toHaveURL(/avaliacao\.html$/);

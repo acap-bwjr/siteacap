@@ -5,8 +5,8 @@ const SEED = {
   jogos: [],
   jogos_resultados: [],
   patrocinadores: [
-    { id: "p1", nome: "Empresa X", logo_url: "https://example.com/x.png", link_url: "https://empresax.com", categoria: "Master", ordem: 0 },
-    { id: "p2", nome: "Empresa Y", logo_url: "https://example.com/y.png", link_url: null, categoria: "Apoiador", ordem: 1 },
+    { id: "p1", nome: "Empresa X", logo_url: "https://example.com/x.png", link_url: "https://empresax.com", instagram_url: "https://instagram.com/empresax", categoria: "Master", ordem: 0 },
+    { id: "p2", nome: "Empresa Y", logo_url: "https://example.com/y.png", link_url: null, instagram_url: null, categoria: "Apoiador", ordem: 1 },
   ],
   patrocinador_leads: [],
 };
@@ -21,8 +21,13 @@ test("lista os patrocinadores cadastrados, em ordem", async ({ page }) => {
   const cards = page.locator(".patrocinador-card");
   await expect(cards).toHaveCount(2);
   await expect(cards.nth(0).locator(".patrocinador-card__nome")).toHaveText("Empresa X");
-  await expect(cards.nth(0)).toHaveAttribute("href", "https://empresax.com");
-  await expect(cards.nth(1)).not.toHaveAttribute("href", /.+/);
+  await expect(cards.nth(0).locator('.patrocinador-card__action[aria-label="Site de Empresa X"]')).toHaveAttribute("href", "https://empresax.com");
+  await expect(cards.nth(1).locator(".patrocinador-card__action")).toHaveCount(0);
+});
+
+test("mostra o ícone de Instagram quando o patrocinador tem instagram_url", async ({ page }) => {
+  const cards = page.locator(".patrocinador-card");
+  await expect(cards.nth(0).locator('.patrocinador-card__action[aria-label="Instagram de Empresa X"]')).toHaveAttribute("href", "https://instagram.com/empresax");
 });
 
 test("envia a proposta de patrocínio e salva os dados corretos", async ({ page }) => {
