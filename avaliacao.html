@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Uniformes — ACAP Futsal</title>
-<meta name="description" content="Conheça os uniformes oficiais da ACAP Futsal: treino da base ao Sub-18, passeio, torcida, os mantos de jogo preto e branco e os uniformes de goleiro.">
+<title>Avaliação / Peneira — ACAP Futsal</title>
+<meta name="description" content="Inscreva seu atleta para a avaliação da ACAP Futsal. Preencha o formulário e nossa comissão técnica entra em contato.">
 <link rel="icon" type="image/webp" href="assets/img/acap-crest.webp">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -42,187 +42,105 @@
 
 <!-- ================= HERO ================= -->
 <section class="academy-hero" id="top">
-  <img src="assets/img/hero-uniformes.webp" alt="Time da ACAP Futsal reunido em círculo antes da partida, vestindo o uniforme do clube" class="academy-hero__photo">
+  <img src="assets/img/hero-avaliacao.webp" alt="Técnico da ACAP avaliando de perto um jovem atleta em ação durante uma avaliação técnica" class="academy-hero__photo">
   <div class="academy-hero__overlay" aria-hidden="true"></div>
 
   <div class="academy-hero__content">
-    <p class="hero__kicker reveal">MANTO OFICIAL</p>
+    <p class="hero__kicker reveal">PENEIRA / AVALIAÇÃO</p>
     <h1 class="academy-hero__title reveal">
-      <span class="line">NOSSOS</span>
-      <span class="line academy-hero__title--accent">UNIFORMES</span>
+      <span class="line">MARQUE SUA</span>
+      <span class="line academy-hero__title--accent">AVALIAÇÃO</span>
     </h1>
     <p class="academy-hero__subtitle reveal">
-      Do primeiro treino ao dia de jogo: cada uniforme da ACAP tem um papel — treino, passeio,
-      torcida, os mantos oficiais de jogo, <strong>preto</strong> e <strong>branco</strong>, e os mantos dos goleiros.
+      Preencha os dados do atleta abaixo e a nossa comissão técnica entra em contato
+      para agendar a avaliação na categoria de interesse.
     </p>
-    <div class="hero__actions">
-      <a href="https://wa.me/5511940758678" target="_blank" rel="noopener" class="btn btn--solid">Quero o meu uniforme</a>
-      <a href="#treino" class="btn btn--ghost">Ver todos os modelos</a>
-    </div>
   </div>
 </section>
 
-<!-- ================= TICKER ================= -->
-<div class="ticker">
-  <div class="ticker__track">
-    <span>TREINO</span><span>·</span>
-    <span>PASSEIO</span><span>·</span>
-    <span>TORCIDA</span><span>·</span>
-    <span>JOGO PRETO</span><span>·</span>
-    <span>JOGO BRANCO</span><span>·</span>
-    <span>GOLEIRO</span><span>·</span>
-    <span>TREINO</span><span>·</span>
-    <span>PASSEIO</span><span>·</span>
-    <span>TORCIDA</span><span>·</span>
-    <span>JOGO PRETO</span><span>·</span>
-    <span>JOGO BRANCO</span><span>·</span>
-    <span>GOLEIRO</span><span>·</span>
-  </div>
-</div>
-
-<!-- ================= UNIFORMES ================= -->
-<section class="uniformes" id="treino">
+<!-- ================= FORMULÁRIO ================= -->
+<section class="avaliacao-form-section">
   <div class="section__inner">
-    <span class="tag reveal">Coleção oficial</span>
-    <h2 class="reveal">Um manto pra cada momento</h2>
+    <span class="tag reveal">Inscrição</span>
+    <h2 class="reveal">Dados do atleta</h2>
     <p class="categorias__lead reveal">
-      Da quadra de treino ao dia de jogo pela Federação — cada uniforme da ACAP tem uma função dentro do clube.
+      Leva menos de dois minutos. Assim que enviar, alguém da nossa comissão técnica
+      entra em contato pelo telefone ou WhatsApp informado.
     </p>
 
-    <div class="uniformes-groups">
+    <form class="lead-form" id="avaliacaoForm">
+      <div id="formMsg" role="status" aria-live="polite"></div>
 
-      <!-- TREINO -->
-      <div class="cat-group reveal">
-        <h3 class="cat-group__title">Treino</h3>
-        <div class="uniform-grid">
-
-          <div class="uniform-card reveal">
-            <div class="uniform-card__visual">
-              <span class="uniform-card__badge">Treino</span>
-              <img src="assets/img/uniformes/treino-sub7-14-atleta.webp" alt="Atleta da ACAP Futsal vestindo o uniforme de treino, Sub-7 ao Sub-14" class="uniform-card__photo uniform-card__photo--full">
-            </div>
-            <div class="uniform-card__body">
-              <h3 class="uniform-card__title">Treino · Sub-7 ao Sub-14</h3>
-              <p class="uniform-card__text">Camisa de treino das categorias de base, do Sub-7 ao Sub-14.</p>
-            </div>
-          </div>
-
-          <div class="uniform-card reveal">
-            <div class="uniform-card__visual">
-              <span class="uniform-card__badge">Treino</span>
-              <img src="assets/img/uniformes/treino-sub16-18-atleta.webp" alt="Atleta da ACAP Futsal vestindo o uniforme de treino, Sub-16 e Sub-18" class="uniform-card__photo uniform-card__photo--full">
-            </div>
-            <div class="uniform-card__body">
-              <h3 class="uniform-card__title">Treino · Sub-16 e Sub-18</h3>
-              <p class="uniform-card__text">Camisa de treino das categorias mais avançadas da base.</p>
-            </div>
-          </div>
-
+      <div class="field--row">
+        <div class="field">
+          <label for="fNomeAtleta">Nome do atleta</label>
+          <input type="text" id="fNomeAtleta" required>
+        </div>
+        <div class="field">
+          <label for="fDataNascimento">Data de nascimento</label>
+          <input type="date" id="fDataNascimento" required>
         </div>
       </div>
 
-      <!-- PASSEIO & TORCIDA -->
-      <div class="cat-group reveal">
-        <h3 class="cat-group__title">Passeio &amp; Torcida</h3>
-        <div class="uniform-grid">
-
-          <div class="uniform-card reveal">
-            <div class="uniform-card__visual">
-              <span class="uniform-card__badge">Passeio</span>
-              <img src="assets/img/uniformes/passeio-atleta.webp" alt="Atleta da ACAP Futsal vestindo o uniforme de passeio" class="uniform-card__photo uniform-card__photo--full">
-            </div>
-            <div class="uniform-card__body">
-              <h3 class="uniform-card__title">Uniforme de passeio</h3>
-              <p class="uniform-card__text">Peça oficial de circulação do clube, usada em viagens e compromissos fora de quadra.</p>
-            </div>
-          </div>
-
-          <div class="uniform-card reveal">
-            <div class="uniform-card__visual">
-              <span class="uniform-card__badge">Torcida</span>
-              <img src="assets/img/uniformes/torcida-atleta.webp" alt="Torcedor da ACAP Futsal vestindo a camisa de torcida" class="uniform-card__photo uniform-card__photo--full">
-            </div>
-            <div class="uniform-card__body">
-              <h3 class="uniform-card__title">Uniforme de torcida</h3>
-              <p class="uniform-card__text">A camisa de quem também veste a causa — pra torcer com a matilha, dentro e fora da arquibancada.</p>
-            </div>
-          </div>
-
+      <div class="field--row">
+        <div class="field">
+          <label for="fCategoria">Categoria de interesse</label>
+          <select id="fCategoria" required>
+            <option value="" disabled selected>Selecione...</option>
+            <option value="Sub-7">Sub-7</option>
+            <option value="Sub-8">Sub-8</option>
+            <option value="Sub-9">Sub-9</option>
+            <option value="Sub-10">Sub-10</option>
+            <option value="Sub-12">Sub-12</option>
+            <option value="Sub-14">Sub-14</option>
+            <option value="Sub-16">Sub-16</option>
+            <option value="Sub-18">Sub-18</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="fPosicao">Posição (opcional)</label>
+          <select id="fPosicao">
+            <option value="" selected>Selecione...</option>
+            <option value="Goleiro">Goleiro</option>
+            <option value="Fixo">Fixo</option>
+            <option value="Ala">Ala</option>
+            <option value="Pivô">Pivô</option>
+            <option value="Ainda não sei">Ainda não sei</option>
+          </select>
         </div>
       </div>
 
-      <!-- JOGO -->
-      <div class="cat-group reveal">
-        <h3 class="cat-group__title">Jogo</h3>
-        <div class="uniform-grid">
-
-          <div class="uniform-card reveal">
-            <div class="uniform-card__visual">
-              <span class="uniform-card__badge">Jogo</span>
-              <img src="assets/img/uniformes/jogo-preto-atleta.webp" alt="Atleta da ACAP Futsal vestindo o manto de jogo preto" class="uniform-card__photo uniform-card__photo--full">
-            </div>
-            <div class="uniform-card__body">
-              <h3 class="uniform-card__title">Jogo · Preto</h3>
-              <p class="uniform-card__text">Um dos mantos oficiais de jogo da ACAP na Federação.</p>
-            </div>
-          </div>
-
-          <div class="uniform-card reveal">
-            <div class="uniform-card__visual">
-              <span class="uniform-card__badge">Jogo</span>
-              <img src="assets/img/uniformes/jogo-branco-atleta.webp" alt="Atleta da ACAP Futsal vestindo o manto de jogo branco" class="uniform-card__photo uniform-card__photo--full">
-            </div>
-            <div class="uniform-card__body">
-              <h3 class="uniform-card__title">Jogo · Branco</h3>
-              <p class="uniform-card__text">O segundo manto oficial, usado conforme a tabela de mando da Federação.</p>
-            </div>
-          </div>
-
+      <div class="field--row">
+        <div class="field">
+          <label for="fNomeResponsavel">Nome do responsável</label>
+          <input type="text" id="fNomeResponsavel" autocomplete="name" required>
+        </div>
+        <div class="field">
+          <label for="fTelefone">Telefone / WhatsApp</label>
+          <input type="tel" id="fTelefone" placeholder="(11) 90000-0000" autocomplete="tel" required>
         </div>
       </div>
 
-      <!-- GOLEIRO -->
-      <div class="cat-group reveal">
-        <h3 class="cat-group__title">Goleiro</h3>
-        <div class="uniform-grid">
-
-          <div class="uniform-card reveal">
-            <div class="uniform-card__visual">
-              <span class="uniform-card__badge">Goleiro</span>
-              <img src="assets/img/uniformes/goleiro-amarelo-atleta.webp" alt="Goleiro da ACAP Futsal vestindo o uniforme amarelo de goleiro" class="uniform-card__photo uniform-card__photo--full">
-            </div>
-            <div class="uniform-card__body">
-              <h3 class="uniform-card__title">Goleiro · Amarelo</h3>
-              <p class="uniform-card__text">Um dos mantos oficiais da posição, com o brasão do lobo em destaque no peito.</p>
-            </div>
-          </div>
-
-          <div class="uniform-card reveal">
-            <div class="uniform-card__visual">
-              <span class="uniform-card__badge">Goleiro</span>
-              <img src="assets/img/uniformes/goleiro-azul-atleta.webp" alt="Goleiro da ACAP Futsal vestindo o uniforme azul-claro de goleiro" class="uniform-card__photo uniform-card__photo--full">
-            </div>
-            <div class="uniform-card__body">
-              <h3 class="uniform-card__title">Goleiro · Azul-claro</h3>
-              <p class="uniform-card__text">Manto de goleiro nas categorias de base, com apoio de patrocinador.</p>
-            </div>
-          </div>
-
-          <div class="uniform-card reveal">
-            <div class="uniform-card__visual">
-              <span class="uniform-card__badge">Goleiro</span>
-              <img src="assets/img/uniformes/goleiro-roxo-atleta.webp" alt="Goleiro da ACAP Futsal vestindo o uniforme azul-royal de goleiro" class="uniform-card__photo uniform-card__photo--full">
-            </div>
-            <div class="uniform-card__body">
-              <h3 class="uniform-card__title">Goleiro · Azul-royal</h3>
-              <p class="uniform-card__text">Terceiro manto da posição, usado conforme a tabela de mando da Federação.</p>
-            </div>
-          </div>
-
-        </div>
+      <div class="field">
+        <label for="fEmail">E-mail</label>
+        <input type="email" id="fEmail" autocomplete="email" required>
       </div>
 
-    </div>
+      <div class="field">
+        <label for="fExperiencia">Experiência anterior (opcional)</label>
+        <textarea id="fExperiencia" placeholder="Clubes anteriores, tempo de prática, competições..."></textarea>
+      </div>
+
+      <div class="field">
+        <label for="fObservacoes">Observações (opcional)</label>
+        <textarea id="fObservacoes"></textarea>
+      </div>
+
+      <div class="lead-form__submit">
+        <button type="submit" class="btn btn--solid" id="submitBtn">Enviar inscrição</button>
+        <p class="field__hint">Ao enviar, você concorda com o uso dos dados exclusivamente para fins de contato sobre a avaliação.</p>
+      </div>
+    </form>
   </div>
 </section>
 
@@ -290,6 +208,9 @@
   </div>
 </footer>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<script src="js/supabase-config.js"></script>
 <script src="js/main.js"></script>
+<script src="js/avaliacao.js"></script>
 </body>
 </html>

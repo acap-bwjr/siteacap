@@ -1,0 +1,148 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-08-18T14:00:00Z",
+  "title": "Design System: ACAP Futsal",
+  "extensions": {
+    "colorMeta": {
+      "verde-bandeira": {
+        "role": "primary",
+        "displayName": "Verde Bandeira",
+        "canonical": "#008000",
+        "tonalRamp": ["#001f00", "#003d00", "#005c00", "#007a00", "#008000", "#33991a", "#66b350", "#99cc85"]
+      },
+      "preto-quadra": {
+        "role": "neutral",
+        "displayName": "Preto Quadra",
+        "canonical": "#0a0a0a",
+        "tonalRamp": ["#000000", "#0d0d0d", "#1a1a1a", "#333333", "#4d4d4d", "#6b6b6b", "#9a9a9a", "#f5f5f4"]
+      },
+      "cinza-vestiario": {
+        "role": "neutral",
+        "displayName": "Cinza Vestiário",
+        "canonical": "#161616",
+        "tonalRamp": ["#000000", "#0d0d0d", "#1a1a1a", "#333333", "#4d4d4d", "#6b6b6b", "#9a9a9a", "#f5f5f4"]
+      },
+      "preto-input": {
+        "role": "neutral",
+        "displayName": "Preto Input",
+        "canonical": "#131313",
+        "tonalRamp": ["#000000", "#0d0d0d", "#1a1a1a", "#333333", "#4d4d4d", "#6b6b6b", "#9a9a9a", "#f5f5f4"]
+      },
+      "branco-osso": {
+        "role": "neutral",
+        "displayName": "Branco Osso",
+        "canonical": "#f5f5f4",
+        "tonalRamp": ["#000000", "#0d0d0d", "#1a1a1a", "#333333", "#4d4d4d", "#6b6b6b", "#9a9a9a", "#f5f5f4"]
+      },
+      "cinza-arquibancada": {
+        "role": "neutral",
+        "displayName": "Cinza Arquibancada",
+        "canonical": "#9a9a9a",
+        "tonalRamp": ["#000000", "#0d0d0d", "#1a1a1a", "#333333", "#4d4d4d", "#6b6b6b", "#9a9a9a", "#f5f5f4"]
+      },
+      "linha": {
+        "role": "neutral",
+        "displayName": "Linha",
+        "canonical": "rgba(255,255,255,.10)"
+      }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display (Anton)", "purpose": "Peso institucional: h1 de hero, h2 de seção, h3 de card. Sempre caixa-alta." },
+      "body": { "displayName": "Body (Inter)", "purpose": "Leitura corrida: parágrafos, leads de seção, texto de card." },
+      "label": { "displayName": "Label (Inter, 700)", "purpose": "Tags, kickers, labels de campo, badges — sempre caixa-alta com tracking largo." }
+    },
+    "shadows": [
+      { "name": "focus-ring", "value": "0 0 0 3px rgba(0,128,0,.35)", "purpose": "Anel de foco em inputs, botões e filter-pills — reforça a borda fina de 1px que sozinha é um sinal fraco de foco." },
+      { "name": "crest-eyes-glow", "value": "0 0 12px rgba(0,128,0,.6)", "purpose": "Glow atmosférico nos olhos do escudo do lobo (hover do hero) — decorativo, não estrutural." },
+      { "name": "crest-eyes-glow-active", "value": "0 0 0 5px var(--preto-quadra, #0a0a0a), 0 0 14px 2px rgba(0,128,0,.7)", "purpose": "Estado ativo do glow dos olhos do escudo, com anel de contenção na cor de fundo." }
+    ],
+    "motion": [
+      { "name": "ease-standard", "value": "cubic-bezier(.16,1,.3,1)", "purpose": "Curva padrão do site inteiro (var(--ease)) — todo hover/transform/reveal usa esta curva." },
+      { "name": "reveal-duration", "value": "0.7s", "purpose": "Duração do fade+translateY de entrada por scroll (.reveal). Cai para 0.3s linear, sem transform, sob prefers-reduced-motion." }
+    ],
+    "breakpoints": [
+      { "name": "sm", "value": "480px" },
+      { "name": "md", "value": "720px" },
+      { "name": "lg", "value": "900px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "CTA principal — fundo branco em repouso, inverte para verde no hover.",
+      "html": "<button class=\"ds-btn-primary\">Ver Categorias</button>",
+      "css": ".ds-btn-primary{ display:inline-block; padding:15px 30px; font-family:\"Inter\",system-ui,sans-serif; font-weight:700; font-size:.85rem; letter-spacing:.08em; text-transform:uppercase; border:none; border-radius:999px; background:var(--branco-osso,#f5f5f4); color:var(--preto-quadra,#0a0a0a); cursor:pointer; transition:transform .3s cubic-bezier(.16,1,.3,1), background .3s, color .3s; } .ds-btn-primary:hover{ background:var(--verde-bandeira,#008000); color:var(--branco-osso,#f5f5f4); transform:translateY(-3px); } .ds-btn-primary:focus-visible{ outline:none; box-shadow:0 0 0 3px rgba(0,128,0,.35); }"
+    },
+    {
+      "name": "Ghost Button",
+      "kind": "button",
+      "refersTo": "button-ghost",
+      "description": "CTA secundário — transparente com borda translúcida, clareia no hover.",
+      "html": "<button class=\"ds-btn-ghost\">Conhecer os Times</button>",
+      "css": ".ds-btn-ghost{ display:inline-block; padding:15px 30px; font-family:\"Inter\",system-ui,sans-serif; font-weight:700; font-size:.85rem; letter-spacing:.08em; text-transform:uppercase; background:transparent; color:var(--branco-osso,#f5f5f4); border:1px solid rgba(255,255,255,.35); border-radius:999px; cursor:pointer; transition:transform .3s cubic-bezier(.16,1,.3,1), border-color .3s; } .ds-btn-ghost:hover{ border-color:var(--branco-osso,#f5f5f4); transform:translateY(-3px); } .ds-btn-ghost:focus-visible{ outline:none; box-shadow:0 0 0 3px rgba(0,128,0,.35); }"
+    },
+    {
+      "name": "Filter Pill",
+      "kind": "chip",
+      "refersTo": "tag-pill",
+      "description": "Tag de seção e filtro clicável (jogos.html) — estado ativo expõe aria-pressed.",
+      "html": "<button class=\"ds-filter-pill\" aria-pressed=\"true\" type=\"button\">Todos</button>",
+      "css": ".ds-filter-pill{ display:inline-block; padding:10px 18px; font-family:\"Inter\",system-ui,sans-serif; font-weight:700; font-size:.82rem; text-transform:uppercase; letter-spacing:.04em; border-radius:999px; border:1px solid rgba(255,255,255,.10); background:var(--preto-input,#131313); color:var(--cinza-arquibancada,#9a9a9a); cursor:pointer; transition:border-color .2s, color .2s, background .2s; } .ds-filter-pill:hover{ border-color:rgba(0,128,0,.5); color:var(--branco-osso,#f5f5f4); } .ds-filter-pill[aria-pressed=\"true\"]{ background:var(--verde-bandeira,#008000); border-color:var(--verde-bandeira,#008000); color:var(--preto-quadra,#0a0a0a); } .ds-filter-pill:focus-visible{ outline:none; box-shadow:0 0 0 3px rgba(0,128,0,.35); }"
+    },
+    {
+      "name": "Card",
+      "kind": "card",
+      "refersTo": "card",
+      "description": "Card de conteúdo genérico (pilar-card / bento-item) — profundidade só por borda+lift, nunca sombra.",
+      "html": "<div class=\"ds-card\"><span class=\"ds-card__icon\" aria-hidden=\"true\"><svg viewBox=\"0 0 24 24\" width=\"26\" height=\"26\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><circle cx=\"12\" cy=\"12\" r=\"9\"/><path d=\"M8 12l3 3 5-6\"/></svg></span><h3 class=\"ds-card__title\">16× Campeão FPFS</h3><p class=\"ds-card__text\">Título mais recente conquistado pelo Time 1 na Federação Paulista de Futebol de Salão.</p></div>",
+      "css": ".ds-card{ padding:30px 24px; border:1px solid rgba(255,255,255,.10); border-radius:16px; background:var(--cinza-vestiario,#161616); transition:border-color .3s, transform .3s cubic-bezier(.16,1,.3,1); } .ds-card:hover{ border-color:rgba(0,128,0,.5); transform:translateY(-4px); } .ds-card__icon{ display:block; margin-bottom:14px; color:var(--verde-bandeira,#008000); } .ds-card__title{ font-family:\"Anton\",\"Arial Narrow\",sans-serif; font-weight:400; text-transform:uppercase; font-size:1.3rem; margin:0 0 10px; color:var(--branco-osso,#f5f5f4); } .ds-card__text{ font-family:\"Inter\",system-ui,sans-serif; font-size:.92rem; color:var(--cinza-arquibancada,#9a9a9a); margin:0; }"
+    },
+    {
+      "name": "Input Field",
+      "kind": "input",
+      "refersTo": "input-field",
+      "description": "Campo de formulário — anel de foco verde, placeholder no mesmo tom do texto secundário.",
+      "html": "<div class=\"ds-field\"><label class=\"ds-field__label\" for=\"ds-demo-input\">Nome do atleta</label><input class=\"ds-field__input\" id=\"ds-demo-input\" type=\"text\" placeholder=\"Digite o nome completo\"></div>",
+      "css": ".ds-field{ display:flex; flex-direction:column; gap:8px; } .ds-field__label{ font-family:\"Inter\",system-ui,sans-serif; font-size:.74rem; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--cinza-arquibancada,#9a9a9a); } .ds-field__input{ width:100%; padding:12px 14px; border-radius:10px; border:1px solid rgba(255,255,255,.10); background:var(--preto-input,#131313); color:var(--branco-osso,#f5f5f4); font-family:\"Inter\",system-ui,sans-serif; font-size:.92rem; transition:border-color .25s; } .ds-field__input::placeholder{ color:var(--cinza-arquibancada,#9a9a9a); opacity:1; } .ds-field__input:focus{ outline:none; border-color:var(--verde-bandeira,#008000); box-shadow:0 0 0 3px rgba(0,128,0,.35); }"
+    },
+    {
+      "name": "Ticker",
+      "kind": "custom",
+      "refersTo": null,
+      "description": "Faixa horizontal invertida (fundo claro) em loop — único componente do sistema com as cores base invertidas.",
+      "html": "<div class=\"ds-ticker\"><div class=\"ds-ticker__track\"><span>TIME 1</span><span>·</span><span>TIME 2</span><span>·</span><span>ACADEMY</span><span>·</span></div></div>",
+      "css": ".ds-ticker{ background:var(--branco-osso,#f5f5f4); color:var(--preto-quadra,#0a0a0a); overflow:hidden; white-space:nowrap; border-top:1px solid var(--preto-quadra,#0a0a0a); border-bottom:1px solid var(--preto-quadra,#0a0a0a); } .ds-ticker__track{ display:inline-flex; gap:18px; padding:12px 0; font-family:\"Inter\",system-ui,sans-serif; font-weight:700; font-size:.8rem; letter-spacing:.08em; text-transform:uppercase; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "A Toca do Lobo",
+    "overview": "O sistema é território de matilha: disciplinado, atlético, com a tensão contida de uma partida sob refletor à noite. A base é preto quase puro — a quadra vazia antes do apito — cortada por um único verde, usado com racionamento, como a única linha demarcada que importa. Anton em caixa-alta carrega o peso institucional (títulos, categorias, nomes de seção); Inter carrega a leitura corrida sem disputar espaço com o display.\n\nA atmosfera não é decorativa por acaso: um grain sutil (mix-blend overlay, 5% de opacidade) cobre a página inteira como grão de transmissão esportiva, e um glow verde acompanha o cursor no desktop — o único elemento verdadeiramente \"vivo\" da interface em repouso. Nada mais brilha, pulsa ou chama atenção à toa; a disciplina visual é o ponto.\n\nAnti-referência confirmada: um visualizador 3D de camisa (cilindro rotacionável com texto no verso) foi implementado e removido — não convenceu (\"não ficou tão bom\"). Fotografia real de atleta vestindo o uniforme substituiu a ideia. Não reintroduzir geometria 3D genérica como substituto de fotografia real.",
+    "keyCharacteristics": [
+      "Preto quase puro como base, verde como acento raro e deliberado — nunca decorativo",
+      "Anton maiúsculo para todo peso institucional; Inter para leitura corrida",
+      "Zero sombras estruturais — profundidade é borda + leve elevação, nunca box-shadow de card",
+      "Grain + glow de cursor como única camada atmosférica \"viva\" da interface",
+      "Pill (999px) como forma dominante de botões, tags e filtros"
+    ],
+    "rules": [
+      { "name": "The One Accent Rule", "body": "Verde Bandeira é a única cor fora da escala de preto/branco no sistema inteiro. Se um elemento novo \"precisa\" de uma segunda cor de destaque, a resposta correta quase sempre é usar mais ou menos opacidade do próprio Verde Bandeira, não introduzir um novo matiz — exceção já aberta e confirmada: os badges de resultado de jogo (vitória/empate/derrota) usam verde/amarelo/vermelho como semântica de estado esportivo, não como paleta decorativa.", "section": "colors" },
+      { "name": "The All-Caps Display Rule", "body": "Todo texto em Anton é caixa-alta, sem exceção — é o único peso tipográfico que o sistema usa para carregar autoridade institucional (nomes de categoria, títulos de seção, CTAs).", "section": "typography" },
+      { "name": "The Border-Then-Lift Rule", "body": "Todo estado de hover em card, painel ou botão segue a mesma dupla: a borda de repouso (Linha, rgba(255,255,255,.10)) sobe para Verde Bandeira (rgba(0,128,0,.5) em bordas, sólido em preenchimentos), e o elemento sobe translateY(-3px) a -4px. Nenhum componente novo introduz box-shadow decorativo como substituto disso.", "section": "elevation" }
+    ],
+    "dos": [
+      "Do usar Verde Bandeira (#008000) literalmente, sem criar tintas/tons derivados para glow, hover ou destaque — se precisar de intensidade diferente, ajuste o alpha, não o matiz.",
+      "Do seguir a dupla borda+lift (The Border-Then-Lift Rule) para qualquer novo estado de hover em card/painel/botão.",
+      "Do manter Cinza Arquibancada (#9a9a9a) como único tom de texto secundário — já mede ~7:1 de contraste sobre Preto Quadra, não precisa (nem deve) ficar mais claro ou mais escuro.",
+      "Do expor estado de seleção/ativo em qualquer grupo de filtro ou tab via aria-pressed/aria-selected, não só via classe CSS .active."
+    ],
+    "donts": [
+      "Don't adicionar box-shadow estrutural a cards, painéis ou botões — a profundidade do sistema é border+lift, não sombra.",
+      "Don't introduzir uma segunda cor de acento fora da escala preto/branco/verde sem uma razão semântica equivalente à dos badges de resultado (vitória/empate/derrota).",
+      "Don't reintroduzir um visualizador 3D genérico (geometria/cilindro) como substituto de fotografia real de atleta/uniforme — já foi tentado e rejeitado.",
+      "Don't deixar conteúdo crítico de conversão (formulário, CTA principal) depender só de .reveal/IntersectionObserver para ficar visível — reserve esse padrão a conteúdo decorativo.",
+      "Don't usar cantos retos/angulares nem clip-path como substituto de contorno fotográfico — sempre derive de um recorte real do asset."
+    ]
+  }
+}

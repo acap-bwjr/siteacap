@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Uniformes — ACAP Futsal</title>
-<meta name="description" content="Conheça os uniformes oficiais da ACAP Futsal: treino da base ao Sub-18, passeio, torcida, os mantos de jogo preto e branco e os uniformes de goleiro.">
+<title>Patrocinadores — ACAP Futsal</title>
+<meta name="description" content="Conheça os patrocinadores da ACAP Futsal e saiba como sua marca pode apoiar um clube formador de atletas na Zona Leste de São Paulo.">
 <link rel="icon" type="image/webp" href="assets/img/acap-crest.webp">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -42,22 +42,21 @@
 
 <!-- ================= HERO ================= -->
 <section class="academy-hero" id="top">
-  <img src="assets/img/hero-uniformes.webp" alt="Time da ACAP Futsal reunido em círculo antes da partida, vestindo o uniforme do clube" class="academy-hero__photo">
+  <img src="assets/img/hero-patrocinadores.webp" alt="Representante da ACAP Futsal e empresário selando uma parceria dentro da quadra" class="academy-hero__photo">
   <div class="academy-hero__overlay" aria-hidden="true"></div>
 
   <div class="academy-hero__content">
-    <p class="hero__kicker reveal">MANTO OFICIAL</p>
+    <p class="hero__kicker reveal">PARCEIROS</p>
     <h1 class="academy-hero__title reveal">
       <span class="line">NOSSOS</span>
-      <span class="line academy-hero__title--accent">UNIFORMES</span>
+      <span class="line academy-hero__title--accent">PATROCINADORES</span>
     </h1>
     <p class="academy-hero__subtitle reveal">
-      Do primeiro treino ao dia de jogo: cada uniforme da ACAP tem um papel — treino, passeio,
-      torcida, os mantos oficiais de jogo, <strong>preto</strong> e <strong>branco</strong>, e os mantos dos goleiros.
+      Empresas que acreditam na formação de atletas da Zona Leste de São Paulo
+      e caminham junto com a ACAP dentro e fora de quadra.
     </p>
     <div class="hero__actions">
-      <a href="https://wa.me/5511940758678" target="_blank" rel="noopener" class="btn btn--solid">Quero o meu uniforme</a>
-      <a href="#treino" class="btn btn--ghost">Ver todos os modelos</a>
+      <a href="#seja-patrocinador" class="btn btn--solid">Quero patrocinar</a>
     </div>
   </div>
 </section>
@@ -65,163 +64,98 @@
 <!-- ================= TICKER ================= -->
 <div class="ticker">
   <div class="ticker__track">
-    <span>TREINO</span><span>·</span>
-    <span>PASSEIO</span><span>·</span>
-    <span>TORCIDA</span><span>·</span>
-    <span>JOGO PRETO</span><span>·</span>
-    <span>JOGO BRANCO</span><span>·</span>
-    <span>GOLEIRO</span><span>·</span>
-    <span>TREINO</span><span>·</span>
-    <span>PASSEIO</span><span>·</span>
-    <span>TORCIDA</span><span>·</span>
-    <span>JOGO PRETO</span><span>·</span>
-    <span>JOGO BRANCO</span><span>·</span>
-    <span>GOLEIRO</span><span>·</span>
+    <span>PARCEIROS OFICIAIS</span><span>·</span>
+    <span>APOIO À FORMAÇÃO</span><span>·</span>
+    <span>ZONA LESTE — SÃO PAULO</span><span>·</span>
+    <span>ACAP FUTSAL</span><span>·</span>
+    <span>PARCEIROS OFICIAIS</span><span>·</span>
+    <span>APOIO À FORMAÇÃO</span><span>·</span>
+    <span>ZONA LESTE — SÃO PAULO</span><span>·</span>
+    <span>ACAP FUTSAL</span><span>·</span>
   </div>
 </div>
 
-<!-- ================= UNIFORMES ================= -->
-<section class="uniformes" id="treino">
+<!-- ================= VITRINE DE PATROCINADORES ================= -->
+<section class="patrocinadores-lista">
   <div class="section__inner">
-    <span class="tag reveal">Coleção oficial</span>
-    <h2 class="reveal">Um manto pra cada momento</h2>
+    <span class="tag reveal">Quem apoia a ACAP</span>
+    <h2 class="reveal">Nossos parceiros</h2>
     <p class="categorias__lead reveal">
-      Da quadra de treino ao dia de jogo pela Federação — cada uniforme da ACAP tem uma função dentro do clube.
+      Empresas que investem na formação de atletas e no esporte da Zona Leste.
     </p>
 
-    <div class="uniformes-groups">
+    <!-- Os patrocinadores são cadastrados pelo painel em admin.html e
+         carregados aqui automaticamente via js/patrocinadores.js. O conteúdo
+         abaixo é o estado vazio (aparece só enquanto não houver patrocinadores
+         cadastrados). -->
 
-      <!-- TREINO -->
-      <div class="cat-group reveal">
-        <h3 class="cat-group__title">Treino</h3>
-        <div class="uniform-grid">
+    <div class="patrocinadores-grid" id="patrocinadoresGrid">
+      <div class="jogos-empty reveal">
+        <span class="jogos-empty__icon"><svg aria-hidden="true" class="lucide lucide-handshake" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="m11 17 2 2a1 1 0 1 0 3-3" /> <path d="m14 14 2.5 2.5a1 1 0 1 0 3-3l-3.88-3.88a3 3 0 0 0-4.24 0l-.88.88a1 1 0 1 1-3-3l2.81-2.81a5.79 5.79 0 0 1 7.06-.87l.47.28a2 2 0 0 0 1.42.25L21 4" /> <path d="m21 3 1 11h-2" /> <path d="M3 3 2 14l6.5 6.5a1 1 0 1 0 3-3" /> <path d="M3 4h8" /> </svg></span>
+        <h3>Ainda sem patrocinadores cadastrados</h3>
+        <p>Em breve, as marcas parceiras da ACAP aparecem aqui.</p>
+      </div>
+    </div>
+  </div>
+</section>
 
-          <div class="uniform-card reveal">
-            <div class="uniform-card__visual">
-              <span class="uniform-card__badge">Treino</span>
-              <img src="assets/img/uniformes/treino-sub7-14-atleta.webp" alt="Atleta da ACAP Futsal vestindo o uniforme de treino, Sub-7 ao Sub-14" class="uniform-card__photo uniform-card__photo--full">
-            </div>
-            <div class="uniform-card__body">
-              <h3 class="uniform-card__title">Treino · Sub-7 ao Sub-14</h3>
-              <p class="uniform-card__text">Camisa de treino das categorias de base, do Sub-7 ao Sub-14.</p>
-            </div>
-          </div>
+<!-- ================= SEJA PATROCINADOR (CAPTAÇÃO) ================= -->
+<section class="patrocinio-cta" id="seja-patrocinador">
+  <div class="section__inner">
+    <span class="tag reveal">Seja um parceiro</span>
+    <h2 class="reveal">Quer patrocinar a ACAP?</h2>
+    <p class="categorias__lead reveal">
+      Preencha os dados abaixo e nossa equipe entra em contato com uma proposta de parceria.
+    </p>
 
-          <div class="uniform-card reveal">
-            <div class="uniform-card__visual">
-              <span class="uniform-card__badge">Treino</span>
-              <img src="assets/img/uniformes/treino-sub16-18-atleta.webp" alt="Atleta da ACAP Futsal vestindo o uniforme de treino, Sub-16 e Sub-18" class="uniform-card__photo uniform-card__photo--full">
-            </div>
-            <div class="uniform-card__body">
-              <h3 class="uniform-card__title">Treino · Sub-16 e Sub-18</h3>
-              <p class="uniform-card__text">Camisa de treino das categorias mais avançadas da base.</p>
-            </div>
-          </div>
-
-        </div>
+    <div class="patrocinio-cta__panel">
+      <div class="patrocinio-cta__text reveal">
+        <h3>Por que patrocinar a ACAP</h3>
+        <p>
+          A ACAP Futsal é um clube formador desde 1995, com 16 títulos da Federação Paulista
+          de Futebol de Salão e centenas de famílias acompanhando o clube na Zona Leste de São Paulo.
+        </p>
+        <ul class="patrocinio-cta__perks">
+          <li><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Visibilidade da marca junto à comunidade da ACAP</li>
+          <li><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Associação a um clube tradicional, 16× campeão</li>
+          <li><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Presença institucional no site e nas redes do clube</li>
+        </ul>
       </div>
 
-      <!-- PASSEIO & TORCIDA -->
-      <div class="cat-group reveal">
-        <h3 class="cat-group__title">Passeio &amp; Torcida</h3>
-        <div class="uniform-grid">
+      <form class="lead-form reveal" id="patrocinioForm" style="margin: 0; max-width: none;">
+        <div id="formMsg"></div>
 
-          <div class="uniform-card reveal">
-            <div class="uniform-card__visual">
-              <span class="uniform-card__badge">Passeio</span>
-              <img src="assets/img/uniformes/passeio-atleta.webp" alt="Atleta da ACAP Futsal vestindo o uniforme de passeio" class="uniform-card__photo uniform-card__photo--full">
-            </div>
-            <div class="uniform-card__body">
-              <h3 class="uniform-card__title">Uniforme de passeio</h3>
-              <p class="uniform-card__text">Peça oficial de circulação do clube, usada em viagens e compromissos fora de quadra.</p>
-            </div>
-          </div>
-
-          <div class="uniform-card reveal">
-            <div class="uniform-card__visual">
-              <span class="uniform-card__badge">Torcida</span>
-              <img src="assets/img/uniformes/torcida-atleta.webp" alt="Torcedor da ACAP Futsal vestindo a camisa de torcida" class="uniform-card__photo uniform-card__photo--full">
-            </div>
-            <div class="uniform-card__body">
-              <h3 class="uniform-card__title">Uniforme de torcida</h3>
-              <p class="uniform-card__text">A camisa de quem também veste a causa — pra torcer com a matilha, dentro e fora da arquibancada.</p>
-            </div>
-          </div>
-
+        <div class="field">
+          <label for="fNomeEmpresa">Nome da empresa</label>
+          <input type="text" id="fNomeEmpresa" required>
         </div>
-      </div>
 
-      <!-- JOGO -->
-      <div class="cat-group reveal">
-        <h3 class="cat-group__title">Jogo</h3>
-        <div class="uniform-grid">
-
-          <div class="uniform-card reveal">
-            <div class="uniform-card__visual">
-              <span class="uniform-card__badge">Jogo</span>
-              <img src="assets/img/uniformes/jogo-preto-atleta.webp" alt="Atleta da ACAP Futsal vestindo o manto de jogo preto" class="uniform-card__photo uniform-card__photo--full">
-            </div>
-            <div class="uniform-card__body">
-              <h3 class="uniform-card__title">Jogo · Preto</h3>
-              <p class="uniform-card__text">Um dos mantos oficiais de jogo da ACAP na Federação.</p>
-            </div>
+        <div class="field--row">
+          <div class="field">
+            <label for="fNomeContato">Nome do contato</label>
+            <input type="text" id="fNomeContato" required>
           </div>
-
-          <div class="uniform-card reveal">
-            <div class="uniform-card__visual">
-              <span class="uniform-card__badge">Jogo</span>
-              <img src="assets/img/uniformes/jogo-branco-atleta.webp" alt="Atleta da ACAP Futsal vestindo o manto de jogo branco" class="uniform-card__photo uniform-card__photo--full">
-            </div>
-            <div class="uniform-card__body">
-              <h3 class="uniform-card__title">Jogo · Branco</h3>
-              <p class="uniform-card__text">O segundo manto oficial, usado conforme a tabela de mando da Federação.</p>
-            </div>
+          <div class="field">
+            <label for="fTelefone">Telefone / WhatsApp</label>
+            <input type="tel" id="fTelefone" placeholder="(11) 90000-0000" required>
           </div>
-
         </div>
-      </div>
 
-      <!-- GOLEIRO -->
-      <div class="cat-group reveal">
-        <h3 class="cat-group__title">Goleiro</h3>
-        <div class="uniform-grid">
-
-          <div class="uniform-card reveal">
-            <div class="uniform-card__visual">
-              <span class="uniform-card__badge">Goleiro</span>
-              <img src="assets/img/uniformes/goleiro-amarelo-atleta.webp" alt="Goleiro da ACAP Futsal vestindo o uniforme amarelo de goleiro" class="uniform-card__photo uniform-card__photo--full">
-            </div>
-            <div class="uniform-card__body">
-              <h3 class="uniform-card__title">Goleiro · Amarelo</h3>
-              <p class="uniform-card__text">Um dos mantos oficiais da posição, com o brasão do lobo em destaque no peito.</p>
-            </div>
-          </div>
-
-          <div class="uniform-card reveal">
-            <div class="uniform-card__visual">
-              <span class="uniform-card__badge">Goleiro</span>
-              <img src="assets/img/uniformes/goleiro-azul-atleta.webp" alt="Goleiro da ACAP Futsal vestindo o uniforme azul-claro de goleiro" class="uniform-card__photo uniform-card__photo--full">
-            </div>
-            <div class="uniform-card__body">
-              <h3 class="uniform-card__title">Goleiro · Azul-claro</h3>
-              <p class="uniform-card__text">Manto de goleiro nas categorias de base, com apoio de patrocinador.</p>
-            </div>
-          </div>
-
-          <div class="uniform-card reveal">
-            <div class="uniform-card__visual">
-              <span class="uniform-card__badge">Goleiro</span>
-              <img src="assets/img/uniformes/goleiro-roxo-atleta.webp" alt="Goleiro da ACAP Futsal vestindo o uniforme azul-royal de goleiro" class="uniform-card__photo uniform-card__photo--full">
-            </div>
-            <div class="uniform-card__body">
-              <h3 class="uniform-card__title">Goleiro · Azul-royal</h3>
-              <p class="uniform-card__text">Terceiro manto da posição, usado conforme a tabela de mando da Federação.</p>
-            </div>
-          </div>
-
+        <div class="field">
+          <label for="fEmail">E-mail</label>
+          <input type="email" id="fEmail" required>
         </div>
-      </div>
 
+        <div class="field">
+          <label for="fMensagem">Mensagem (opcional)</label>
+          <textarea id="fMensagem" placeholder="Conte um pouco sobre a proposta de parceria..."></textarea>
+        </div>
+
+        <div class="lead-form__submit">
+          <button type="submit" class="btn btn--solid" id="submitBtn">Enviar proposta</button>
+          <p class="field__hint">Ao enviar, você concorda com o uso dos dados exclusivamente para fins de contato sobre a parceria.</p>
+        </div>
+      </form>
     </div>
   </div>
 </section>
@@ -247,8 +181,6 @@
       <a href="federacao.html">Federação</a>
       <a href="uniformes.html">Uniformes</a>
       <a href="jogos.html">Jogos</a>
-      <a href="noticias.html">Notícias</a>
-      <a href="patrocinadores.html">Patrocinadores</a>
       <a href="avaliacao.html">Avaliação</a>
     </div>
 
@@ -290,6 +222,9 @@
   </div>
 </footer>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<script src="js/supabase-config.js"></script>
 <script src="js/main.js"></script>
+<script src="js/patrocinadores.js"></script>
 </body>
 </html>

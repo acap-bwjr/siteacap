@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Painel de Jogos — ACAP Futsal</title>
+<title>Painel Administrativo — ACAP Futsal</title>
 <meta name="robots" content="noindex, nofollow">
 <link rel="icon" type="image/webp" href="assets/img/acap-crest.webp">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -35,7 +35,7 @@
 
 <!-- ================= LOGIN ================= -->
 <section class="admin-login" id="loginScreen" hidden>
-  <h1>Painel de Jogos</h1>
+  <h1>Painel Administrativo</h1>
   <p>Entre com o login cadastrado no Supabase.</p>
   <div id="loginMsg"></div>
   <form id="loginForm">
@@ -53,6 +53,15 @@
 
 <!-- ================= PAINEL ================= -->
 <main class="admin-main" id="adminMain" hidden>
+
+  <div class="admin-tabs">
+    <button class="status-tab active" data-admin-tab="jogos" type="button">Jogos</button>
+    <button class="status-tab" data-admin-tab="noticias" type="button">Notícias</button>
+    <button class="status-tab" data-admin-tab="patrocinadores" type="button">Patrocinadores</button>
+    <button class="status-tab" data-admin-tab="leads" type="button">Leads</button>
+  </div>
+
+  <div data-admin-panel="jogos">
 
   <form class="admin-form" id="jogoForm">
     <h2 id="formTitle">Novo jogo</h2>
@@ -172,6 +181,137 @@
     <div id="jogosList">
       <p class="admin-empty">Carregando...</p>
     </div>
+  </div>
+
+  </div>
+
+  <!-- ============ NOTÍCIAS ============ -->
+  <div data-admin-panel="noticias" hidden>
+
+  <form class="admin-form" id="noticiaForm">
+    <h2 id="noticiaFormTitle">Nova notícia</h2>
+    <div id="noticiaFormMsg"></div>
+
+    <input type="hidden" id="noticiaId">
+
+    <div class="field">
+      <label for="fTitulo">Título</label>
+      <input type="text" id="fTitulo" required>
+    </div>
+
+    <div class="field">
+      <label for="fResumo">Resumo</label>
+      <textarea id="fResumo" placeholder="Aparece no card, na listagem de notícias" required></textarea>
+    </div>
+
+    <div class="field">
+      <label for="fCorpo">Texto completo (opcional)</label>
+      <textarea id="fCorpo" placeholder="Aparece quando o visitante clica em &quot;Ler mais&quot;"></textarea>
+    </div>
+
+    <div class="field--row">
+      <div class="field">
+        <label for="fCategoria">Categoria (opcional)</label>
+        <input type="text" id="fCategoria" placeholder="Ex: Resultados, Institucional">
+      </div>
+      <div class="field">
+        <label for="fDataPublicacao">Data de publicação</label>
+        <input type="date" id="fDataPublicacao" required>
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="fImagem">Imagem (opcional)</label>
+      <input type="file" id="fImagem" accept="image/*">
+      <img id="imagemPreview" class="admin-form__logo-preview" alt="Pré-visualização da imagem">
+      <input type="hidden" id="fImagemUrl">
+    </div>
+
+    <div class="admin-form__actions">
+      <button type="submit" class="btn btn--solid btn--small" id="noticiaSubmitBtn">Salvar notícia</button>
+      <button type="button" class="btn--text" id="noticiaCancelEditBtn" hidden>Cancelar edição</button>
+    </div>
+  </form>
+
+  <div class="admin-list">
+    <h2>Notícias publicadas</h2>
+    <div id="noticiasList">
+      <p class="admin-empty">Carregando...</p>
+    </div>
+  </div>
+
+  </div>
+
+  <!-- ============ PATROCINADORES ============ -->
+  <div data-admin-panel="patrocinadores" hidden>
+
+  <form class="admin-form" id="patrocinadorForm">
+    <h2 id="patrocinadorFormTitle">Novo patrocinador</h2>
+    <div id="patrocinadorFormMsg"></div>
+
+    <input type="hidden" id="patrocinadorId">
+
+    <div class="field">
+      <label for="fNome">Nome</label>
+      <input type="text" id="fNome" required>
+    </div>
+
+    <div class="field">
+      <label for="fPatrocinadorLogo">Logo</label>
+      <input type="file" id="fPatrocinadorLogo" accept="image/*">
+      <img id="patrocinadorLogoPreview" class="admin-form__logo-preview" alt="Pré-visualização do logo">
+      <input type="hidden" id="fPatrocinadorLogoUrl">
+    </div>
+
+    <div class="field--row">
+      <div class="field">
+        <label for="fLinkUrl">Site (opcional)</label>
+        <input type="text" id="fLinkUrl" placeholder="https://...">
+      </div>
+      <div class="field">
+        <label for="fPatrocinadorCategoria">Categoria (opcional)</label>
+        <input type="text" id="fPatrocinadorCategoria" placeholder="Ex: Master, Apoiador">
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="fOrdem">Ordem de exibição</label>
+      <input type="number" id="fOrdem" min="0" value="0">
+      <p class="field__hint">Menor número aparece primeiro na vitrine.</p>
+    </div>
+
+    <div class="admin-form__actions">
+      <button type="submit" class="btn btn--solid btn--small" id="patrocinadorSubmitBtn">Salvar patrocinador</button>
+      <button type="button" class="btn--text" id="patrocinadorCancelEditBtn" hidden>Cancelar edição</button>
+    </div>
+  </form>
+
+  <div class="admin-list">
+    <h2>Patrocinadores cadastrados</h2>
+    <div id="patrocinadoresList">
+      <p class="admin-empty">Carregando...</p>
+    </div>
+  </div>
+
+  </div>
+
+  <!-- ============ LEADS ============ -->
+  <div data-admin-panel="leads" hidden>
+
+  <div class="admin-list">
+    <h2>Inscrições de avaliação</h2>
+    <div id="avaliacaoLeadsList">
+      <p class="admin-empty">Carregando...</p>
+    </div>
+  </div>
+
+  <div class="admin-list">
+    <h2>Propostas de patrocínio</h2>
+    <div id="patrocinioLeadsList">
+      <p class="admin-empty">Carregando...</p>
+    </div>
+  </div>
+
   </div>
 
 </main>

@@ -131,8 +131,12 @@ const statusPanels = document.querySelectorAll("[data-status-panel]");
 
 teamFilters.forEach(btn => {
   btn.addEventListener("click", () => {
-    teamFilters.forEach(b => b.classList.remove("active"));
+    teamFilters.forEach(b => {
+      b.classList.remove("active");
+      b.setAttribute("aria-pressed", "false");
+    });
     btn.classList.add("active");
+    btn.setAttribute("aria-pressed", "true");
     const team = btn.dataset.teamFilter;
     document.querySelectorAll(".jogo-card").forEach(card => {
       card.style.display = (team === "todos" || card.dataset.team === team) ? "" : "none";
@@ -142,8 +146,12 @@ teamFilters.forEach(btn => {
 
 statusTabs.forEach(tab => {
   tab.addEventListener("click", () => {
-    statusTabs.forEach(t => t.classList.remove("active"));
+    statusTabs.forEach(t => {
+      t.classList.remove("active");
+      t.setAttribute("aria-selected", "false");
+    });
     tab.classList.add("active");
+    tab.setAttribute("aria-selected", "true");
     statusPanels.forEach(panel => {
       panel.hidden = panel.dataset.statusPanel !== tab.dataset.statusFilter;
     });
