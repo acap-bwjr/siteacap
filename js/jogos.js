@@ -38,7 +38,8 @@ function renderPainel(containerId, jogos, isResultado) {
   const teamLabel = { time1: "Time 1", time2: "Time 2", academy: "Academy" };
   const resultLabel = { vitoria: "Vitória", empate: "Empate", derrota: "Derrota" };
 
-  container.innerHTML = jogos.map(jogo => {
+  container.innerHTML = jogos.map((jogo, index) => {
+    const isNext = !isResultado && index === 0;
     const logoHtml = jogo.adversario_logo_url
       ? `<img class="jogo-card__opponent-photo" src="${escapeHtml(jogo.adversario_logo_url)}" alt="">`
       : `<span class="jogo-card__opponent-placeholder">?</span>`;
@@ -83,7 +84,8 @@ function renderPainel(containerId, jogos, isResultado) {
     const localNome = jogo.local_nome ? ` · ${escapeHtml(jogo.local_nome)}` : "";
 
     return `
-      <div class="jogo-card reveal is-visible" data-team="${jogo.team}">
+      <div class="jogo-card reveal is-visible${isNext ? " jogo-card--next" : ""}" data-team="${jogo.team}">
+        ${isNext ? `<span class="jogo-card__next-badge">Próximo jogo</span>` : ""}
         <div class="jogo-card__top">
           <span class="jogo-card__team jogo-card__team--${jogo.team}">${teamLabel[jogo.team] || jogo.team}</span>
           <span class="jogo-card__competicao">${escapeHtml(jogo.competicao)}</span>

@@ -15,12 +15,14 @@ burger.addEventListener("click", () => {
   const open = navLinks.classList.toggle("open");
   burger.classList.toggle("open", open);
   burger.setAttribute("aria-expanded", String(open));
+  document.body.classList.toggle("nav-open", open);
 });
 navLinks.querySelectorAll("a").forEach(a => {
   a.addEventListener("click", () => {
     navLinks.classList.remove("open");
     burger.classList.remove("open");
     burger.setAttribute("aria-expanded", "false");
+    document.body.classList.remove("nav-open");
   });
 });
 
