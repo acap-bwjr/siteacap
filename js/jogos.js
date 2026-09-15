@@ -17,7 +17,7 @@ async function carregarJogos() {
   (resultadosData || []).forEach(r => { (resultadosPorJogo[r.jogo_id] ||= []).push(r); });
   data.forEach(j => { j._resultados = resultadosPorJogo[j.id] || []; });
 
-  const hoje = new Date().toISOString().slice(0, 10);
+  const hoje = todayLocalISO();
   const proximos = data.filter(j => j.status !== "realizado" && j.data >= hoje);
   const resultados = data
     .filter(j => j.status === "realizado")
@@ -40,7 +40,7 @@ function renderPainel(containerId, jogos, isResultado) {
 
   container.innerHTML = jogos.map(jogo => {
     const logoHtml = jogo.adversario_logo_url
-      ? `<img class="jogo-card__opponent-photo" src="${jogo.adversario_logo_url}" alt="">`
+      ? `<img class="jogo-card__opponent-photo" src="${escapeHtml(jogo.adversario_logo_url)}" alt="">`
       : `<span class="jogo-card__opponent-placeholder">?</span>`;
 
     const temResultadosPorCategoria = isResultado && jogo._resultados && jogo._resultados.length > 0;
@@ -68,7 +68,7 @@ function renderPainel(containerId, jogos, isResultado) {
           }
           return `
             <div class="jogo-card__resultado-categoria">
-              <span class="jogo-card__resultado-categoria__nome">${r.categoria}</span>
+              <span class="jogo-card__resultado-categoria__nome">${escapeHtml(r.categoria)}</span>
               <span class="jogo-card__resultado-categoria__placar">${r.placar_acap ?? "-"} – ${r.placar_adversario ?? "-"}</span>
               ${badge}
             </div>`;
@@ -80,13 +80,13 @@ function renderPainel(containerId, jogos, isResultado) {
     const dataFmt = formatarDataBR(jogo.data);
     const horaFmt = jogo.hora ? ` · ${jogo.hora.slice(0, 5)}` : "";
     const localFmt = jogo.local_tipo === "casa" ? "Casa" : "Fora";
-    const localNome = jogo.local_nome ? ` · ${jogo.local_nome}` : "";
+    const localNome = jogo.local_nome ? ` · ${escapeHtml(jogo.local_nome)}` : "";
 
     return `
       <div class="jogo-card reveal is-visible" data-team="${jogo.team}">
         <div class="jogo-card__top">
           <span class="jogo-card__team jogo-card__team--${jogo.team}">${teamLabel[jogo.team] || jogo.team}</span>
-          <span class="jogo-card__competicao">${jogo.competicao}</span>
+          <span class="jogo-card__competicao">${escapeHtml(jogo.competicao)}</span>
         </div>
         <div class="jogo-card__match">
           <div class="jogo-card__side">
@@ -96,7 +96,7 @@ function renderPainel(containerId, jogos, isResultado) {
           ${middleHtml}
           <div class="jogo-card__side">
             ${logoHtml}
-            <span>${jogo.adversario}</span>
+            <span>${escapeHtml(jogo.adversario)}</span>
           </div>
         </div>
         <div class="jogo-card__meta">
@@ -104,7 +104,7 @@ function renderPainel(containerId, jogos, isResultado) {
           <span><svg aria-hidden="true" class="lucide lucide-map-pin" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0" /> <circle cx="12" cy="10" r="3" /> </svg> ${localFmt}${localNome}</span>
         </div>
         ${jogo.categorias && jogo.categorias.length && !temResultadosPorCategoria
-          ? `<div class="jogo-card__categorias">${jogo.categorias.map(c => `<span class="jogo-card__cat-pill">${c}</span>`).join("")}</div>`
+          ? `<div class="jogo-card__categorias">${jogo.categorias.map(c => `<span class="jogo-card__cat-pill">${escapeHtml(c)}</span>`).join("")}</div>`
           : ""}
         ${resultadosCategoriasHtml}
         ${resultBadge ? `<div class="jogo-card__meta">${resultBadge}</div>` : ""}
@@ -132,4 +132,22 @@ function restoreEmptyState(containerId) {
 function formatarDataBR(isoDate) {
   const [y, m, d] = isoDate.split("-");
   return `${d}/${m}/${y}`;
+}
+
+// Data local (não UTC) no formato YYYY-MM-DD. `toISOString().slice(0, 10)`
+// converte para UTC antes de fatiar, o que faz a data "virar" mais cedo do
+// que o esperado em fusos atrás de UTC (ex.: America/Sao_Paulo, UTC-3) —
+// um jogo agendado para hoje à noite sumia da lista de "Próximos jogos".
+function todayLocalISO() {
+  const d = new Date();
+  const y = d.getFullYear();
+  const m = String(d.getMonth() + 1).padStart(2, "0");
+  const day = String(d.getDate()).padStart(2, "0");
+  return `${y}-${m}-${day}`;
+}
+
+function escapeHtml(str) {
+  const div = document.createElement("div");
+  div.textContent = str ?? "";
+  return div.innerHTML;
 }

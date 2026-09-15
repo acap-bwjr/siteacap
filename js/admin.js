@@ -202,34 +202,49 @@ async function handleSubmit(e) {
 
     const id = document.getElementById("jogoId").value;
     let jogoId = id;
-    if (id) {
-      const { error } = await supabaseClient.from("jogos").update(payload).eq("id", id);
-      if (error) throw error;
-    } else {
-      const { data: inserted, error } = await supabaseClient.from("jogos").insert(payload).select().single();
-      if (error) throw error;
-      jogoId = inserted.id;
-    }
+    let jogoSalvo = false;
+    try {
+      if (id) {
+        const { error } = await supabaseClient.from("jogos").update(payload).eq("id", id);
+        if (error) throw error;
+      } else {
+        const { data: inserted, error } = await supabaseClient.from("jogos").insert(payload).select().single();
+        if (error) throw error;
+        jogoId = inserted.id;
+      }
+      jogoSalvo = true;
 
-    if (status === "realizado" && isMulti) {
-      const resultados = categorias.map(cat => ({
-        jogo_id: jogoId,
-        categoria: cat,
-        placar_acap: toIntOrNull(document.querySelector(`.fPlacarCategoriaAcap[data-categoria="${cat}"]`).value),
-        placar_adversario: toIntOrNull(document.querySelector(`.fPlacarCategoriaAdversario[data-categoria="${cat}"]`).value),
-      }));
-      const { error: delError } = await supabaseClient.from("jogos_resultados").delete().eq("jogo_id", jogoId);
-      if (delError) throw delError;
-      const { error: insError } = await supabaseClient.from("jogos_resultados").insert(resultados);
-      if (insError) throw insError;
-    } else {
-      const { error: delError } = await supabaseClient.from("jogos_resultados").delete().eq("jogo_id", jogoId);
-      if (delError) throw delError;
-    }
+      if (status === "realizado" && isMulti) {
+        const resultados = categorias.map(cat => ({
+          jogo_id: jogoId,
+          categoria: cat,
+          placar_acap: toIntOrNull(document.querySelector(`.fPlacarCategoriaAcap[data-categoria="${cat}"]`).value),
+          placar_adversario: toIntOrNull(document.querySelector(`.fPlacarCategoriaAdversario[data-categoria="${cat}"]`).value),
+        }));
+        const { error: delError } = await supabaseClient.from("jogos_resultados").delete().eq("jogo_id", jogoId);
+        if (delError) throw delError;
+        const { error: insError } = await supabaseClient.from("jogos_resultados").insert(resultados);
+        if (insError) throw insError;
+      } else {
+        const { error: delError } = await supabaseClient.from("jogos_resultados").delete().eq("jogo_id", jogoId);
+        if (delError) throw delError;
+      }
 
-    formMsg.innerHTML = `<div class="admin-msg admin-msg--ok">Jogo salvo com sucesso.</div>`;
-    resetForm(false);
-    loadJogos();
+      formMsg.innerHTML = `<div class="admin-msg admin-msg--ok">Jogo salvo com sucesso.</div>`;
+      resetForm(false);
+      loadJogos();
+    } catch (err) {
+      if (jogoSalvo) {
+        // O jogo já foi criado/atualizado com sucesso — só os placares por
+        // categoria falharam. Não deixar a mensagem parecer uma falha total:
+        // reenviar o formulário criaria um jogo duplicado.
+        formMsg.innerHTML = `<div class="admin-msg admin-msg--error">Jogo salvo, mas houve um erro ao salvar os placares por categoria (${escapeHtml(err.message || "erro desconhecido")}). Abra "Editar" no jogo na lista abaixo para corrigir os placares.</div>`;
+        resetForm(false);
+        loadJogos();
+      } else {
+        throw err;
+      }
+    }
   } catch (err) {
     formMsg.innerHTML = `<div class="admin-msg admin-msg--error">${escapeHtml(err.message || "Erro ao salvar.")}</div>`;
   } finally {
@@ -353,6 +368,15 @@ function formatDateBR(isoDate) {
   return `${d}/${m}/${y}`;
 }
 
+// Data local (não UTC) no formato YYYY-MM-DD — ver nota em js/jogos.js.
+function todayLocalISO() {
+  const d = new Date();
+  const y = d.getFullYear();
+  const m = String(d.getMonth() + 1).padStart(2, "0");
+  const day = String(d.getDate()).padStart(2, "0");
+  return `${y}-${m}-${day}`;
+}
+
 function escapeHtml(str) {
   const div = document.createElement("div");
   div.textContent = str;
@@ -382,7 +406,7 @@ function resetNoticiaForm(clearMsg = true) {
   document.getElementById("noticiaId").value = "";
   document.getElementById("fImagemUrl").value = "";
   document.getElementById("imagemPreview").classList.remove("is-visible");
-  document.getElementById("fDataPublicacao").value = new Date().toISOString().slice(0, 10);
+  document.getElementById("fDataPublicacao").value = todayLocalISO();
   document.getElementById("noticiaFormTitle").textContent = "Nova notícia";
   document.getElementById("noticiaSubmitBtn").textContent = "Salvar notícia";
   document.getElementById("noticiaCancelEditBtn").hidden = true;

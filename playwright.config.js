@@ -73,7 +73,7 @@ export default defineConfig({
 
   /* Run your local dev server before starting the tests */
   webServer: {
-    command: 'python3 -m http.server 8934',
+    command: 'node scripts/static-server.js 8934',
     url: 'http://localhost:8934',
     reuseExistingServer: !process.env.CI,
   },
