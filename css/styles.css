@@ -1896,6 +1896,9 @@ ul{ margin:0; padding:0; list-style:none; }
     font-family: var(--font-body);
     font-size: .82rem;
   }
+  .nav__links a.nav__cta--solid{
+    margin-top: 18px;
+  }
   .nav__links a.nav__cta:not(.nav__cta--solid){
     margin-top: 26px;
     padding-top: 26px;
