@@ -40,10 +40,13 @@ const server = http.createServer((req, res) => {
   const send = (data, servedPath) => {
     const ext = path.extname(servedPath).toLowerCase();
     const headers = { "Content-Type": MIME[ext] || "application/octet-stream" };
-    // HTML/CSS/JS change on every deploy — force browsers to revalidate
-    // instead of silently serving a stale copy from cache (no build step
-    // here means no versioned/hashed filenames to bust the cache with).
-    if (NO_CACHE_EXT.has(ext)) headers["Cache-Control"] = "no-cache";
+    // HTML/CSS/JS change on every deploy. We send no ETag/Last-Modified,
+    // so a plain "no-cache" has nothing to revalidate against and some
+    // browsers (mobile Safari in particular) end up just reusing the old
+    // cached copy anyway. "no-store" forbids caching it at all, which is
+    // unambiguous — fine for a low-traffic site with no build step to
+    // hash filenames for cache-busting instead.
+    if (NO_CACHE_EXT.has(ext)) headers["Cache-Control"] = "no-store";
     res.writeHead(200, headers);
     res.end(data);
   };
