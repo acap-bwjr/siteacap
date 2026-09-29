@@ -36,9 +36,15 @@ const server = http.createServer((req, res) => {
     return;
   }
 
+  const NO_CACHE_EXT = new Set([".html", ".css", ".js"]);
   const send = (data, servedPath) => {
     const ext = path.extname(servedPath).toLowerCase();
-    res.writeHead(200, { "Content-Type": MIME[ext] || "application/octet-stream" });
+    const headers = { "Content-Type": MIME[ext] || "application/octet-stream" };
+    // HTML/CSS/JS change on every deploy — force browsers to revalidate
+    // instead of silently serving a stale copy from cache (no build step
+    // here means no versioned/hashed filenames to bust the cache with).
+    if (NO_CACHE_EXT.has(ext)) headers["Cache-Control"] = "no-cache";
+    res.writeHead(200, headers);
     res.end(data);
   };
   const send404 = () => {
