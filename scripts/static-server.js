@@ -36,19 +36,35 @@ const server = http.createServer((req, res) => {
     return;
   }
 
+  const send = (data, servedPath) => {
+    const ext = path.extname(servedPath).toLowerCase();
+    res.writeHead(200, { "Content-Type": MIME[ext] || "application/octet-stream" });
+    res.end(data);
+  };
+  const send404 = () => {
+    res.writeHead(404, { "Content-Type": "text/plain" });
+    res.end("Not found");
+  };
+
   fs.stat(filePath, (err, stats) => {
     if (!err && stats.isDirectory()) {
       filePath = path.join(filePath, "index.html");
     }
     fs.readFile(filePath, (readErr, data) => {
-      if (readErr) {
-        res.writeHead(404, { "Content-Type": "text/plain" });
-        res.end("Not found");
+      if (!readErr) return send(data, filePath);
+
+      // Clean-URL fallback: /admin -> admin.html (matches the extensionless
+      // links this site is linked/bookmarked with locally via `npx serve`,
+      // which the production static server doesn't do by default).
+      if (!path.extname(filePath)) {
+        const withHtml = `${filePath}.html`;
+        fs.readFile(withHtml, (err2, data2) => {
+          if (err2) return send404();
+          send(data2, withHtml);
+        });
         return;
       }
-      const ext = path.extname(filePath).toLowerCase();
-      res.writeHead(200, { "Content-Type": MIME[ext] || "application/octet-stream" });
-      res.end(data);
+      send404();
     });
   });
 });
