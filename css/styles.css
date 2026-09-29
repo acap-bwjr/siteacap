@@ -137,12 +137,16 @@ ul{ margin:0; padding:0; list-style:none; }
 }
 .nav__links a[data-nav]:hover::after{ width: 100%; }
 .nav__cta{
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
   border: 1px solid var(--white);
   padding: 8px 18px !important;
   border-radius: 999px;
   color: var(--white) !important;
   white-space: nowrap;
 }
+.nav__cta svg{ width: 14px; height: 14px; flex-shrink: 0; }
 .nav__cta:hover{ background: var(--white); color: var(--black) !important; }
 .nav__cta--solid{
   background: var(--eye-green);
