@@ -67,6 +67,17 @@
     <h2 id="formTitle">Novo jogo</h2>
     <div id="formMsg"></div>
 
+    <div class="admin-form__paste">
+      <div class="field">
+        <label for="fPasteMsg">Colar mensagem do jogo (opcional)</label>
+        <textarea id="fPasteMsg" rows="6" placeholder="Cole aqui a mensagem do campeonato/grupo com os dados do jogo (competição, data, local, adversário, horário e categoria)..."></textarea>
+      </div>
+      <div class="admin-form__paste-actions">
+        <button type="button" class="btn btn--ghost btn--small" id="parseJogoBtn">Preencher com essa mensagem</button>
+      </div>
+      <div id="parseJogoResult" class="admin-form__paste-result"></div>
+    </div>
+
     <input type="hidden" id="jogoId">
 
     <div class="field">

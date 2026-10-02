@@ -1274,6 +1274,35 @@ ul{ margin:0; padding:0; list-style:none; }
   margin-bottom: 50px;
 }
 .admin-form h2{ font-size: 1.3rem; margin-bottom: 24px; }
+.admin-form__paste{
+  margin-bottom: 26px;
+  padding-bottom: 26px;
+  border-bottom: 1px solid var(--line);
+}
+.admin-form__paste textarea{ font-family: var(--font-body); }
+.admin-form__paste-actions{ margin-top: 10px; }
+.admin-form__paste-result{
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 12px;
+  font-size: .82rem;
+  color: var(--grey);
+}
+.admin-form__paste-chip{
+  font-size: .76rem;
+  font-weight: 700;
+  padding: 6px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: var(--black-soft);
+  color: var(--grey);
+  cursor: pointer;
+  transition: border-color .2s, color .2s;
+}
+.admin-form__paste-chip:hover{ border-color: rgba(0,128,0,.5); color: var(--white); }
+.admin-form__paste-chip.active{ border-color: var(--eye-green); color: var(--eye-green); }
 .admin-tabs{ display: flex; gap: 0; margin-bottom: 40px; border-bottom: 1px solid var(--line); flex-wrap: wrap; }
 .admin-lead-row{
   display: flex;

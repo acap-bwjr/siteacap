@@ -145,3 +145,51 @@ test("excluir um jogo remove ele da lista", async ({ page }) => {
   await expect(page.locator(".admin-row", { hasText: "Osasco Futsal" })).toHaveCount(0);
   await expect(page.locator(".admin-row")).toHaveCount(1);
 });
+
+test("colar mensagem de jogo preenche o formulário, com um jogo por horário/categoria", async ({ page }) => {
+  await login(page);
+
+  const msg = `Paulistão GOLD 2026
+
+📆 Sábado dia 03/Out/2026
+
+🏟️Local: Teotônio Vilela
+
+🚗Rua Carlos Clauseti, 19 - Jd Sapopema
+
+⚽ Acap/Bola no Pé
+⚽ Taboão/F9
+
+⏰ 13:00h Sub-14
+
+⏰ 13:50h Sub-12`;
+
+  await page.fill("#fPasteMsg", msg);
+  await page.click("#parseJogoBtn");
+
+  await expect(page.locator("#fCompeticao")).toHaveValue("Paulistão GOLD 2026");
+  await expect(page.locator("#fAdversario")).toHaveValue("Bola no Pé");
+  await expect(page.locator("#fData")).toHaveValue("2026-10-03");
+  await expect(page.locator("#fLocalNome")).toHaveValue("Teotônio Vilela");
+  await expect(page.locator("#fHora")).toHaveValue("13:00");
+  await expect(page.locator('input[name="fCategorias"][value="Sub-14"]')).toBeChecked();
+  await expect(page.locator('input[name="fCategorias"][value="Sub-12"]')).not.toBeChecked();
+
+  await page.click('[data-parse-index="1"]');
+
+  await expect(page.locator("#fHora")).toHaveValue("13:50");
+  await expect(page.locator('input[name="fCategorias"][value="Sub-12"]')).toBeChecked();
+  await expect(page.locator('input[name="fCategorias"][value="Sub-14"]')).not.toBeChecked();
+  await expect(page.locator("#fAdversario")).toHaveValue("Bola no Pé");
+});
+
+test("colar mensagem sem dados reconhecíveis mostra aviso e não mexe no formulário", async ({ page }) => {
+  await login(page);
+
+  await page.fill("#fPasteMsg", "oi, bom dia pessoal!");
+  await page.click("#parseJogoBtn");
+
+  await expect(page.locator("#parseJogoResult")).toContainText("Não consegui identificar");
+  await expect(page.locator("#fCompeticao")).toHaveValue("");
+  await expect(page.locator("#fAdversario")).toHaveValue("");
+});

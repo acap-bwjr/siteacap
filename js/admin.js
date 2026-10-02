@@ -32,6 +32,7 @@ async function boot() {
     cb.addEventListener("change", () => updatePlacarFields())
   );
   updatePlacarFields();
+  document.getElementById("parseJogoBtn").addEventListener("click", handleParseJogoClick);
 
   initAdminTabs();
 
@@ -156,7 +157,135 @@ function resetForm(clearMsg = true) {
   document.getElementById("cancelEditBtn").hidden = true;
   if (clearMsg) document.getElementById("formMsg").innerHTML = "";
   pendingLogoFile = null;
+  parsedJogos = [];
+  document.getElementById("parseJogoResult").innerHTML = "";
   updatePlacarFields();
+}
+
+/* ---------- Preenchimento automático a partir de mensagem colada ----------
+   A ideia não é ser perfeito: é deixar o rascunho pronto pro admin conferir
+   e ajustar antes de salvar. Nunca envia nada direto pro banco. */
+let parsedJogos = [];
+
+const MESES_PT = {
+  jan: "01", fev: "02", mar: "03", abr: "04", mai: "05", jun: "06",
+  jul: "07", ago: "08", set: "09", out: "10", nov: "11", dez: "12",
+};
+
+function parseJogoMessage(text) {
+  const lines = text.split("\n").map(l => l.trim()).filter(Boolean);
+
+  let competicao = "", data = "", localNome = "", adversario = "";
+  const horarios = [];
+
+  for (const line of lines) {
+    const clean = line.replace(/^[^\wÀ-ÿ]+/, "").trim();
+
+    const dataTexto = line.match(/(\d{1,2})\s*\/\s*([a-zçé]{3,})\.?\s*\/?\s*(\d{2,4})?/i);
+    if (!data && dataTexto && MESES_PT[dataTexto[2].toLowerCase().slice(0, 3)]) {
+      const dia = dataTexto[1].padStart(2, "0");
+      const mes = MESES_PT[dataTexto[2].toLowerCase().slice(0, 3)];
+      const ano = dataTexto[3] ? (dataTexto[3].length === 2 ? `20${dataTexto[3]}` : dataTexto[3]) : String(new Date().getFullYear());
+      data = `${ano}-${mes}-${dia}`;
+      continue;
+    }
+    const dataNumerica = line.match(/\b(\d{1,2})\/(\d{1,2})\/(\d{2,4})\b/);
+    if (!data && dataNumerica) {
+      const ano = dataNumerica[3].length === 2 ? `20${dataNumerica[3]}` : dataNumerica[3];
+      data = `${ano}-${dataNumerica[2].padStart(2, "0")}-${dataNumerica[1].padStart(2, "0")}`;
+      continue;
+    }
+
+    const localMatch = line.match(/local\s*:?\s*(.+)/i);
+    if (!localNome && localMatch) {
+      localNome = localMatch[1].trim();
+      continue;
+    }
+
+    if (/^(rua|av\.?|avenida|alameda|estrada|r\.)\s/i.test(clean)) continue;
+
+    const horaMatch = line.match(/\b(\d{1,2})[:h](\d{2})\s*h?\b/i);
+    if (horaMatch) {
+      const hora = `${horaMatch[1].padStart(2, "0")}:${horaMatch[2]}`;
+      const subMatch = line.match(/sub[\s-]?(\d{1,2})/i);
+      horarios.push({ hora, categoria: subMatch ? `Sub-${subMatch[1]}` : "" });
+      continue;
+    }
+
+    if (clean.includes("/")) {
+      const partes = clean.split("/").map(s => s.trim()).filter(Boolean);
+      if (partes.length === 2) {
+        const [a, b] = partes;
+        if (/acap/i.test(a) && !/acap/i.test(b)) { adversario = b; continue; }
+        if (/acap/i.test(b) && !/acap/i.test(a)) { adversario = a; continue; }
+      }
+    }
+
+    if (!competicao) competicao = clean;
+  }
+
+  if (horarios.length === 0) horarios.push({ hora: "", categoria: "" });
+
+  return horarios.map(h => ({ competicao, data, localNome, adversario, hora: h.hora, categoria: h.categoria }));
+}
+
+function applyParsedJogo(index) {
+  const jogo = parsedJogos[index];
+  if (!jogo) return;
+
+  if (jogo.competicao) document.getElementById("fCompeticao").value = jogo.competicao;
+  if (jogo.adversario) document.getElementById("fAdversario").value = jogo.adversario;
+  if (jogo.data) document.getElementById("fData").value = jogo.data;
+  if (jogo.hora) document.getElementById("fHora").value = jogo.hora;
+  if (jogo.localNome) document.getElementById("fLocalNome").value = jogo.localNome;
+
+  if (jogo.categoria) {
+    document.querySelectorAll('input[name="fCategorias"]').forEach(cb => {
+      cb.checked = cb.value === jogo.categoria;
+    });
+    updatePlacarFields();
+  }
+
+  renderParseResult(index);
+}
+
+function renderParseResult(activeIndex) {
+  const box = document.getElementById("parseJogoResult");
+  if (parsedJogos.length <= 1) {
+    box.innerHTML = "";
+    return;
+  }
+  box.innerHTML = `
+    <span>Detectamos ${parsedJogos.length} jogos nessa mensagem — clique pra preencher cada um (salve um de cada vez):</span>
+    ${parsedJogos.map((j, i) => `
+      <button type="button" class="admin-form__paste-chip${i === activeIndex ? " active" : ""}" data-parse-index="${i}">${escapeHtml(j.categoria || `Jogo ${i + 1}`)}${j.hora ? ` · ${j.hora}` : ""}</button>
+    `).join("")}
+  `;
+  box.querySelectorAll("[data-parse-index]").forEach(btn => {
+    btn.addEventListener("click", () => applyParsedJogo(Number(btn.dataset.parseIndex)));
+  });
+}
+
+function handleParseJogoClick() {
+  const text = document.getElementById("fPasteMsg").value.trim();
+  const resultBox = document.getElementById("parseJogoResult");
+
+  if (!text) {
+    resultBox.innerHTML = `<span style="color:#ff9b9b;">Cole a mensagem do jogo primeiro.</span>`;
+    return;
+  }
+
+  parsedJogos = parseJogoMessage(text);
+  const found = parsedJogos[0];
+  // Não conta "competição" sozinha: é só a primeira linha sobrando quando
+  // nada mais bate, então uma mensagem qualquer sempre "acertaria" ela.
+  const gotAnything = found.data || found.adversario || found.hora || found.localNome;
+  if (!gotAnything) {
+    resultBox.innerHTML = `<span style="color:#ff9b9b;">Não consegui identificar os dados nessa mensagem — preencha manualmente.</span>`;
+    return;
+  }
+
+  applyParsedJogo(0);
 }
 
 async function handleSubmit(e) {
